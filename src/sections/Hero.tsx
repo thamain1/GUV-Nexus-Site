@@ -1,15 +1,17 @@
+const BASE = import.meta.env.BASE_URL
+
 export default function Hero() {
   return (
     <section id="top" className="relative h-[100svh] min-h-[640px] overflow-hidden media-grain">
       {/* Video backdrop */}
       <video
         className="absolute inset-0 h-full w-full object-cover"
-        src="/media/hero-loop.mp4"
+        src={`${BASE}media/hero-loop.mp4`}
         autoPlay
         muted
         loop
         playsInline
-        poster="/media/about-terrain.jpg"
+        poster={`${BASE}media/about-terrain.jpg`}
       />
       {/* Legibility gradient — keeps the void black, deepens toward the type */}
       <div className="absolute inset-0 bg-gradient-to-b from-[#060607]/70 via-transparent to-[#060607]" />

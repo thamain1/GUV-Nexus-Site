@@ -1,5 +1,7 @@
 import { useParallax } from '@/hooks/use-parallax'
 
+const BASE = import.meta.env.BASE_URL
+
 const stats = [
   { value: '46', label: 'Engagements shipped' },
   { value: '14', label: 'Industries served' },
@@ -35,7 +37,7 @@ export default function Practice() {
       <div className="mt-20 md:ml-[34vw] md:max-w-4xl overflow-hidden">
         <div ref={imgRef} className="will-change-transform scale-110">
           <img
-            src="/media/about-terrain.jpg"
+            src={`${BASE}media/about-terrain.jpg`}
             alt="Abstract wireframe terrain with a signal line"
             className="w-full aspect-[16/9] object-cover"
             loading="lazy"

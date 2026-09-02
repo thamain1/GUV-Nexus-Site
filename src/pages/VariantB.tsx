@@ -2,6 +2,7 @@
 // Soft near-black, Cormorant Garamond at light weights, zero radius,
 // monochrome UI — the imagery carries all the color.
 
+const BASE = import.meta.env.BASE_URL
 const BG = '#101012'
 const INK = '#EDECE8'
 const MUTED = 'rgba(237,236,232,0.5)'
@@ -72,7 +73,7 @@ export default function VariantB() {
 
         <div className="mt-20 md:mt-28">
           <video
-            src="/media/hero-loop.mp4"
+            src={`${BASE}media/hero-loop.mp4`}
             autoPlay
             muted
             loop
@@ -148,8 +149,8 @@ export default function VariantB() {
 
         <div className="mt-14 space-y-24">
           {[
-            { img: '/media/work-systems.jpg', name: 'Helios Grid', scope: 'Real-time energy telemetry platform', year: '2025' },
-            { img: '/media/work-intelligence.jpg', name: 'Vanta Index', scope: 'Applied ML for private markets', year: '2024' },
+            { img: `${BASE}media/work-systems.jpg`, name: 'Helios Grid', scope: 'Real-time energy telemetry platform', year: '2025' },
+            { img: `${BASE}media/work-intelligence.jpg`, name: 'Vanta Index', scope: 'Applied ML for private markets', year: '2024' },
           ].map((p, i) => (
             <div key={p.name} className={`grid md:grid-cols-12 gap-8 items-end ${i % 2 ? '' : ''}`}>
               <div className={i % 2 ? 'md:col-span-8 md:order-2' : 'md:col-span-8'}>

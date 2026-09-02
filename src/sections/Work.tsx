@@ -1,15 +1,17 @@
 import { useParallax } from '@/hooks/use-parallax'
 
+const BASE = import.meta.env.BASE_URL
+
 const projects = [
   {
-    img: '/media/work-systems.jpg',
+    img: `${BASE}media/work-systems.jpg`,
     name: 'Helios Grid',
     scope: 'Real-time energy telemetry platform',
     year: '2025',
     tags: ['Systems engineering', 'Streaming data'],
   },
   {
-    img: '/media/work-intelligence.jpg',
+    img: `${BASE}media/work-intelligence.jpg`,
     name: 'Vanta Index',
     scope: 'Applied ML for private markets',
     year: '2024',

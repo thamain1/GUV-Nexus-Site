@@ -1,6 +1,7 @@
 // Variant A — "Editorial Light"
 // Warm paper, Fraunces serif, hairline rules, consultancy-grade restraint.
 
+const BASE = import.meta.env.BASE_URL
 const INK = '#14161A'
 const PAPER = '#FAFAF7'
 const LINE = '#E3DED2'
@@ -118,7 +119,7 @@ export default function VariantA() {
 
         <div className="mt-16" style={{ border: `1px solid ${LINE}`, padding: 8 }}>
           <video
-            src="/media/hero-loop.mp4"
+            src={`${BASE}media/hero-loop.mp4`}
             autoPlay
             muted
             loop
@@ -238,8 +239,8 @@ export default function VariantA() {
 
         <div className="mt-16 grid md:grid-cols-2 gap-10">
           {[
-            { img: '/media/work-systems.jpg', name: 'Helios Grid', scope: 'Real-time energy telemetry platform', year: '2025', tags: ['Systems engineering', 'Streaming data'] },
-            { img: '/media/work-intelligence.jpg', name: 'Vanta Index', scope: 'Applied ML for private markets', year: '2024', tags: ['Applied intelligence', 'Retrieval systems'] },
+            { img: `${BASE}media/work-systems.jpg`, name: 'Helios Grid', scope: 'Real-time energy telemetry platform', year: '2025', tags: ['Systems engineering', 'Streaming data'] },
+            { img: `${BASE}media/work-intelligence.jpg`, name: 'Vanta Index', scope: 'Applied ML for private markets', year: '2024', tags: ['Applied intelligence', 'Retrieval systems'] },
           ].map((p) => (
             <div key={p.name}>
               <div style={{ border: `1px solid ${LINE}`, padding: 8 }}>
