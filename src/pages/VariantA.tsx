@@ -118,17 +118,31 @@ export default function VariantA() {
         </div>
 
         <div className="mt-16" style={{ border: `1px solid ${LINE}`, padding: 8 }}>
-          <video
-            src={`${BASE}media/hero-loop.mp4`}
-            autoPlay
-            muted
-            loop
-            playsInline
-            className="w-full aspect-[16/9] object-cover"
-          />
+          <div
+            className="relative w-full aspect-[16/9] overflow-hidden flex items-center justify-center"
+            style={{ background: '#F5F3ED', perspective: '1100px' }}
+          >
+            {/* Outer ring — rotates opposite to the G */}
+            <svg className="hero-ring-outer absolute h-[78%] aspect-square" viewBox="0 0 400 400" aria-hidden="true">
+              <circle cx="200" cy="200" r="192" fill="none" stroke={INK} strokeOpacity="0.14" strokeWidth="1" />
+              <circle cx="200" cy="200" r="192" fill="none" stroke={BLUE} strokeWidth="2.5" strokeLinecap="round" strokeDasharray="150 1056" />
+              <circle cx="200" cy="200" r="192" fill="none" stroke={RED} strokeWidth="2.5" strokeLinecap="round" strokeDasharray="70 1136" strokeDashoffset="-500" />
+            </svg>
+            {/* Inner dashed ring — follows the G's direction */}
+            <svg className="hero-ring-inner absolute h-[60%] aspect-square" viewBox="0 0 400 400" aria-hidden="true">
+              <circle cx="200" cy="200" r="192" fill="none" stroke={INK} strokeOpacity="0.35" strokeWidth="1" strokeDasharray="3 12" />
+            </svg>
+            {/* Centerpiece G — coin-spin */}
+            <span
+              className="hero-g font-serif-edit relative"
+              style={{ color: INK, fontWeight: 500, fontSize: 'min(32vh, 24vw)', lineHeight: 1 }}
+            >
+              G
+            </span>
+          </div>
         </div>
         <p className="mt-3 font-mono2 text-[10px] uppercase tracking-[0.18em]" style={{ color: MUTED }}>
-          Fig. 01 — Glass systems study, rendered in-house
+          Fig. 01 — The GUV mark, always in motion
         </p>
       </section>
 

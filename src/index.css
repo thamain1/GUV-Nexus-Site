@@ -122,6 +122,42 @@
     -webkit-text-stroke: 1px rgba(245, 245, 244, 0.22);
     color: transparent;
   }
+  /* Animated hero mark — serif G coin-spin with counter-rotating ring */
+  @keyframes g-coin {
+    from {
+      transform: rotateY(0deg);
+    }
+    to {
+      transform: rotateY(360deg);
+    }
+  }
+  @keyframes ring-rotate {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  .hero-g {
+    display: inline-block;
+    transform-style: preserve-3d;
+    backface-visibility: visible;
+    animation: g-coin 14s linear infinite;
+  }
+  .hero-ring-outer {
+    animation: ring-rotate 32s linear infinite reverse;
+  }
+  .hero-ring-inner {
+    animation: ring-rotate 48s linear infinite;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hero-g,
+    .hero-ring-outer,
+    .hero-ring-inner {
+      animation: none;
+    }
+  }
   .media-grain::before {
     content: "";
     position: absolute;
