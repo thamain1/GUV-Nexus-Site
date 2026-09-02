@@ -33,7 +33,7 @@ export default function Hero() {
           <span>We build apps</span>
           <span className="hidden md:inline">for real business challenges</span>
           <span className="hidden sm:inline">Senior teams only</span>
-          <span className="text-[#e4002b]">Scroll ↓</span>
+          <span className="text-[#f43f5e]">Scroll ↓</span>
         </div>
       </div>
     </section>

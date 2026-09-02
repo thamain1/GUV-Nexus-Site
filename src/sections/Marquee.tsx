@@ -10,7 +10,7 @@ export default function Marquee() {
             {row.map((w, i) => (
               <span key={`${half}-${i}`} className="flex items-center">
                 <span className="display-xl text-4xl md:text-6xl text-white/90 px-6">{w}</span>
-                <span className="h-2 w-2 rounded-full bg-[#e4002b]" />
+                <span className="h-2 w-2 rounded-full bg-[#f43f5e]" />
               </span>
             ))}
           </div>

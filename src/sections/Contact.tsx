@@ -9,7 +9,7 @@ export default function Contact() {
         <h2 className="display-xl text-[14vw] md:text-[10.5vw] text-white leading-[0.9] group-hover:text-[#5c8aff] transition-colors duration-500">
           LET'S
           <br />
-          BUILD<span className="text-[#e4002b] group-hover:text-white transition-colors duration-500">.</span>
+          BUILD<span className="text-[#f43f5e] group-hover:text-white transition-colors duration-500">.</span>
         </h2>
       </a>
 

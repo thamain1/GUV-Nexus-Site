@@ -51,7 +51,7 @@ function StatusPill({ status }: { status: string }) {
           : 'border border-white/25 text-white/60'
       }`}
     >
-      <span className={`h-1.5 w-1.5 rounded-full ${live ? 'bg-white' : 'bg-[#e4002b]'}`} />
+      <span className={`h-1.5 w-1.5 rounded-full ${live ? 'bg-white' : 'bg-[#f43f5e]'}`} />
       {status}
     </span>
   )
