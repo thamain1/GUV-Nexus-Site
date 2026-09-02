@@ -135,7 +135,7 @@ export default function VariantA() {
             {/* Centerpiece G — coin-spin */}
             <span
               className="hero-g font-serif-edit relative"
-              style={{ color: INK, fontWeight: 500, fontSize: 'min(32vh, 24vw)', lineHeight: 1 }}
+              style={{ color: BLUE, fontWeight: 500, fontSize: 'min(32vh, 24vw)', lineHeight: 1 }}
             >
               G
             </span>
