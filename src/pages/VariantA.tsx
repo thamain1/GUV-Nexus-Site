@@ -214,7 +214,7 @@ export default function VariantA() {
           <div>
             <p className="font-serif-edit text-3xl md:text-5xl leading-[1.15] max-w-4xl" style={{ fontWeight: 400 }}>
               GUV Nexus is led by{' '}
-              <em className="font-serif-edit" style={{ fontStyle: 'italic', color: '#9BB8FF' }}>Beth Underhill</em>
+              <em className="font-serif-edit" style={{ fontStyle: 'italic', color: RED }}>Beth Underhill</em>
               , principal and founder — backed by a bench of senior engineers,
               researchers and designers who have shipped at scale and chose to
               work small.
