@@ -176,7 +176,7 @@
   .guv-word {
     position: absolute;
     left: 50%;
-    top: 44%;
+    top: 50%;
     transform: translate(-50%, -50%);
     display: flex;
   }
@@ -223,7 +223,7 @@
   .guv-nexus {
     position: absolute;
     left: 50%;
-    top: 73%;
+    top: calc(50% + min(12vh, 8.5vw));
     transform: translate(-50%, 0);
     opacity: 0;
     animation: guv-nexus-in 0.9s ease-out 3.4s both;
