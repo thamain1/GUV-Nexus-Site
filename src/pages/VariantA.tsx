@@ -132,12 +132,30 @@ export default function VariantA() {
             <svg className="hero-ring-inner absolute h-[60%] aspect-square" viewBox="0 0 400 400" aria-hidden="true">
               <circle cx="200" cy="200" r="192" fill="none" stroke={INK} strokeOpacity="0.35" strokeWidth="1" strokeDasharray="3 12" />
             </svg>
-            {/* Centerpiece G — coin-spin */}
+            {/* Logo reveal — G spins, UV spin off to form GUV, Nexus fades in */}
             <span
-              className="hero-g font-serif-edit relative"
-              style={{ color: BLUE, fontWeight: 500, fontSize: 'min(32vh, 24vw)', lineHeight: 1 }}
+              className="guv-letter guv-g font-serif-edit"
+              style={{ color: BLUE, fontWeight: 500, fontSize: 'min(26vh, 19vw)', lineHeight: 1 }}
             >
               G
+            </span>
+            <span
+              className="guv-letter guv-u font-serif-edit"
+              style={{ color: BLUE, fontWeight: 500, fontSize: 'min(26vh, 19vw)', lineHeight: 1 }}
+            >
+              U
+            </span>
+            <span
+              className="guv-letter guv-v font-serif-edit"
+              style={{ color: BLUE, fontWeight: 500, fontSize: 'min(26vh, 19vw)', lineHeight: 1 }}
+            >
+              V
+            </span>
+            <span
+              className="guv-nexus font-serif-edit"
+              style={{ color: INK, fontWeight: 400, fontStyle: 'italic', fontSize: 'min(7.5vh, 5.5vw)', letterSpacing: '0.06em' }}
+            >
+              Nexus
             </span>
           </div>
         </div>

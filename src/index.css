@@ -122,15 +122,7 @@
     -webkit-text-stroke: 1px rgba(245, 245, 244, 0.22);
     color: transparent;
   }
-  /* Animated hero mark — serif G coin-spin with counter-rotating ring */
-  @keyframes g-coin {
-    from {
-      transform: rotateY(0deg);
-    }
-    to {
-      transform: rotateY(360deg);
-    }
-  }
+  /* Animated hero mark — G spins in, UV spin off to form GUV, Nexus fades below */
   @keyframes ring-rotate {
     from {
       transform: rotate(0deg);
@@ -139,11 +131,70 @@
       transform: rotate(360deg);
     }
   }
-  .hero-g {
-    display: inline-block;
+  @keyframes guv-g-spin {
+    0% {
+      transform: translate(-50%, -50%) rotateY(0deg);
+    }
+    55% {
+      transform: translate(-50%, -50%) rotateY(720deg);
+    }
+    72% {
+      transform: translate(-50%, -50%) rotateY(720deg);
+    }
+    100% {
+      transform: translate(calc(-50% - 0.75em), -50%) rotateY(720deg);
+    }
+  }
+  @keyframes guv-letter-out {
+    0% {
+      opacity: 0;
+      transform: translate(-50%, -50%) rotateY(360deg) scale(0.5);
+    }
+    25% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 1;
+      transform: translate(calc(-50% + var(--gx)), -50%) rotateY(0deg) scale(1);
+    }
+  }
+  @keyframes guv-nexus-in {
+    from {
+      opacity: 0;
+      transform: translate(-50%, 14px);
+    }
+    to {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
+  }
+  .guv-letter {
+    position: absolute;
+    left: 50%;
+    top: 46%;
+    transform: translate(-50%, -50%);
     transform-style: preserve-3d;
-    backface-visibility: visible;
-    animation: g-coin 14s linear infinite;
+  }
+  .guv-g {
+    animation: guv-g-spin 3s cubic-bezier(0.6, 0.02, 0.3, 1) both;
+  }
+  .guv-u {
+    --gx: 0em;
+    opacity: 0;
+    animation: guv-letter-out 1s cubic-bezier(0.2, 0.7, 0.3, 1) 1.75s both;
+  }
+  .guv-v {
+    --gx: 0.75em;
+    opacity: 0;
+    animation: guv-letter-out 1s cubic-bezier(0.2, 0.7, 0.3, 1) 1.95s both;
+  }
+  .guv-nexus {
+    position: absolute;
+    left: 50%;
+    top: 73%;
+    transform: translate(-50%, 0);
+    opacity: 0;
+    animation: guv-nexus-in 0.9s ease-out 2.9s both;
   }
   .hero-ring-outer {
     animation: ring-rotate 32s linear infinite reverse;
@@ -152,10 +203,28 @@
     animation: ring-rotate 48s linear infinite;
   }
   @media (prefers-reduced-motion: reduce) {
-    .hero-g,
     .hero-ring-outer,
     .hero-ring-inner {
       animation: none;
+    }
+    /* Jump straight to the settled wordmark */
+    .guv-g {
+      animation: none;
+      transform: translate(calc(-50% - 0.75em), -50%);
+    }
+    .guv-u {
+      animation: none;
+      opacity: 1;
+      transform: translate(calc(-50% + 0em), -50%);
+    }
+    .guv-v {
+      animation: none;
+      opacity: 1;
+      transform: translate(calc(-50% + 0.75em), -50%);
+    }
+    .guv-nexus {
+      animation: none;
+      opacity: 1;
     }
   }
   .media-grain::before {
