@@ -122,7 +122,7 @@
     -webkit-text-stroke: 1px rgba(245, 245, 244, 0.22);
     color: transparent;
   }
-  /* Animated hero mark — G spins in, UV spin off to form GUV, Nexus fades below */
+  /* Hero logo reveal — letters spin off one another, shimmer rolls through, Nexus rises */
   @keyframes ring-rotate {
     from {
       transform: rotate(0deg);
@@ -131,31 +131,36 @@
       transform: rotate(360deg);
     }
   }
-  @keyframes guv-g-spin {
-    0% {
-      transform: translate(-50%, -50%) rotateY(0deg);
+  @keyframes ch-spin-in {
+    from {
+      transform: perspective(700px) rotateY(-360deg);
     }
-    55% {
-      transform: translate(-50%, -50%) rotateY(720deg);
-    }
-    72% {
-      transform: translate(-50%, -50%) rotateY(720deg);
-    }
-    100% {
-      transform: translate(calc(-50% - 0.75em), -50%) rotateY(720deg);
+    to {
+      transform: perspective(700px) rotateY(0deg);
     }
   }
-  @keyframes guv-letter-out {
-    0% {
-      opacity: 0;
-      transform: translate(-50%, -50%) rotateY(360deg) scale(0.5);
+  @keyframes letter-open {
+    from {
+      width: 0;
     }
-    25% {
-      opacity: 1;
+    to {
+      width: var(--lw);
     }
-    100% {
-      opacity: 1;
-      transform: translate(calc(-50% + var(--gx)), -50%) rotateY(0deg) scale(1);
+  }
+  @keyframes ch-unspin {
+    from {
+      transform: perspective(700px) rotateY(-110deg);
+    }
+    to {
+      transform: perspective(700px) rotateY(0deg);
+    }
+  }
+  @keyframes shimmer-roll {
+    from {
+      background-position: 120% 0;
+    }
+    to {
+      background-position: -30% 0;
     }
   }
   @keyframes guv-nexus-in {
@@ -168,25 +173,52 @@
       transform: translate(-50%, 0);
     }
   }
-  .guv-letter {
+  .guv-word {
     position: absolute;
     left: 50%;
-    top: 46%;
+    top: 44%;
     transform: translate(-50%, -50%);
-    transform-style: preserve-3d;
+    display: flex;
   }
-  .guv-g {
-    animation: guv-g-spin 3s cubic-bezier(0.6, 0.02, 0.3, 1) both;
+  .guv-l {
+    display: inline-block;
+    overflow: hidden;
   }
-  .guv-u {
-    --gx: 0em;
-    opacity: 0;
-    animation: guv-letter-out 1s cubic-bezier(0.2, 0.7, 0.3, 1) 1.75s both;
+  .guv-ch {
+    display: inline-block;
+    color: transparent;
+    background-image: linear-gradient(110deg, #0033a0 42%, #a9c4ff 50%, #0033a0 58%);
+    background-size: 300% 100%;
+    background-position: 120% 0;
+    -webkit-background-clip: text;
+    background-clip: text;
+    transform-origin: left center;
   }
-  .guv-v {
-    --gx: 0.75em;
-    opacity: 0;
-    animation: guv-letter-out 1s cubic-bezier(0.2, 0.7, 0.3, 1) 1.95s both;
+  .gl-g .guv-ch {
+    transform-origin: center;
+    animation:
+      ch-spin-in 1.2s cubic-bezier(0.45, 0.05, 0.25, 1) 0.15s both,
+      shimmer-roll 1.1s ease-in-out 2.9s both;
+  }
+  .gl-u {
+    --lw: 0.76em;
+    width: 0;
+    animation: letter-open 0.8s cubic-bezier(0.3, 0.7, 0.3, 1) 1.1s both;
+  }
+  .gl-u .guv-ch {
+    animation:
+      ch-unspin 0.8s cubic-bezier(0.3, 0.7, 0.3, 1) 1.1s both,
+      shimmer-roll 1.1s ease-in-out 3.02s both;
+  }
+  .gl-v {
+    --lw: 0.78em;
+    width: 0;
+    animation: letter-open 0.8s cubic-bezier(0.3, 0.7, 0.3, 1) 1.85s both;
+  }
+  .gl-v .guv-ch {
+    animation:
+      ch-unspin 0.8s cubic-bezier(0.3, 0.7, 0.3, 1) 1.85s both,
+      shimmer-roll 1.1s ease-in-out 3.14s both;
   }
   .guv-nexus {
     position: absolute;
@@ -194,7 +226,7 @@
     top: 73%;
     transform: translate(-50%, 0);
     opacity: 0;
-    animation: guv-nexus-in 0.9s ease-out 2.9s both;
+    animation: guv-nexus-in 0.9s ease-out 3.4s both;
   }
   .hero-ring-outer {
     animation: ring-rotate 32s linear infinite reverse;
@@ -207,20 +239,15 @@
     .hero-ring-inner {
       animation: none;
     }
-    /* Jump straight to the settled wordmark */
-    .guv-g {
+    .gl-u,
+    .gl-v {
       animation: none;
-      transform: translate(calc(-50% - 0.75em), -50%);
+      width: var(--lw);
     }
-    .guv-u {
+    .gl-g .guv-ch,
+    .gl-u .guv-ch,
+    .gl-v .guv-ch {
       animation: none;
-      opacity: 1;
-      transform: translate(calc(-50% + 0em), -50%);
-    }
-    .guv-v {
-      animation: none;
-      opacity: 1;
-      transform: translate(calc(-50% + 0.75em), -50%);
     }
     .guv-nexus {
       animation: none;
