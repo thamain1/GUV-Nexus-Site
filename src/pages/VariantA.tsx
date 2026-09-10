@@ -86,8 +86,44 @@ export default function VariantA() {
       </header>
 
       {/* ── Hero ────────────────────────────────────────── */}
-      <section className="px-6 md:px-12 pt-20 md:pt-28 pb-16 md:pb-24">
-        <div className="flex items-center justify-between">
+      <section className="px-6 md:px-12 pt-8 md:pt-10 pb-16 md:pb-24">
+        <div style={{ border: `1px solid ${LINE}`, padding: 8 }}>
+          <div
+            className="relative w-full aspect-[16/9] overflow-hidden flex items-center justify-center"
+            style={{ background: '#F5F3ED', perspective: '1100px' }}
+          >
+            {/* Outer ring — rotates opposite to the G */}
+            <svg className="hero-ring-outer absolute h-[78%] aspect-square" viewBox="0 0 400 400" aria-hidden="true">
+              <circle cx="200" cy="200" r="192" fill="none" stroke={INK} strokeOpacity="0.14" strokeWidth="1" />
+              <circle cx="200" cy="200" r="192" fill="none" stroke={BLUE} strokeWidth="2.5" strokeLinecap="round" strokeDasharray="150 1056" />
+              <circle cx="200" cy="200" r="192" fill="none" stroke={RED} strokeWidth="2.5" strokeLinecap="round" strokeDasharray="70 1136" strokeDashoffset="-500" />
+            </svg>
+            {/* Inner dashed ring — follows the G's direction */}
+            <svg className="hero-ring-inner absolute h-[60%] aspect-square" viewBox="0 0 400 400" aria-hidden="true">
+              <circle cx="200" cy="200" r="192" fill="none" stroke={INK} strokeOpacity="0.35" strokeWidth="1" strokeDasharray="3 12" />
+            </svg>
+            {/* Logo reveal — letters spin off one another, shimmer rolls through, NEXUS rises */}
+            <div
+              className="guv-word font-display"
+              style={{ fontWeight: 600, fontSize: 'min(26vh, 19vw)', lineHeight: 1 }}
+            >
+              <span className="guv-l gl-g"><span className="guv-ch">G</span></span>
+              <span className="guv-l gl-u"><span className="guv-ch">U</span></span>
+              <span className="guv-l gl-v"><span className="guv-ch">V</span></span>
+            </div>
+            <span
+              className="guv-nexus font-display"
+              style={{ color: INK, fontWeight: 500, fontSize: 'min(5.5vh, 4vw)', letterSpacing: '0.35em' }}
+            >
+              NEXUS
+            </span>
+          </div>
+        </div>
+        <p className="mt-3 font-mono2 text-[10px] uppercase tracking-[0.18em]" style={{ color: MUTED }}>
+          Fig. 01 — The GUV mark, always in motion
+        </p>
+
+        <div className="mt-16 md:mt-24 flex items-center justify-between">
           <Eyebrow>Boutique technology studio</Eyebrow>
           <p className="hidden md:block font-mono2 text-[11px] uppercase tracking-[0.22em]" style={{ color: MUTED }}>
             Systems / Intelligence / Craft / Advisory
@@ -116,42 +152,6 @@ export default function VariantA() {
             <a href="#a-apps" className="link-line" style={{ color: INK }}>The app portfolio</a>
           </div>
         </div>
-
-        <div className="mt-16" style={{ border: `1px solid ${LINE}`, padding: 8 }}>
-          <div
-            className="relative w-full aspect-[16/9] overflow-hidden flex items-center justify-center"
-            style={{ background: '#F5F3ED', perspective: '1100px' }}
-          >
-            {/* Outer ring — rotates opposite to the G */}
-            <svg className="hero-ring-outer absolute h-[78%] aspect-square" viewBox="0 0 400 400" aria-hidden="true">
-              <circle cx="200" cy="200" r="192" fill="none" stroke={INK} strokeOpacity="0.14" strokeWidth="1" />
-              <circle cx="200" cy="200" r="192" fill="none" stroke={BLUE} strokeWidth="2.5" strokeLinecap="round" strokeDasharray="150 1056" />
-              <circle cx="200" cy="200" r="192" fill="none" stroke={RED} strokeWidth="2.5" strokeLinecap="round" strokeDasharray="70 1136" strokeDashoffset="-500" />
-            </svg>
-            {/* Inner dashed ring — follows the G's direction */}
-            <svg className="hero-ring-inner absolute h-[60%] aspect-square" viewBox="0 0 400 400" aria-hidden="true">
-              <circle cx="200" cy="200" r="192" fill="none" stroke={INK} strokeOpacity="0.35" strokeWidth="1" strokeDasharray="3 12" />
-            </svg>
-            {/* Logo reveal — letters spin off one another, shimmer rolls through, Nexus rises */}
-            <div
-              className="guv-word font-serif-edit"
-              style={{ fontWeight: 500, fontSize: 'min(26vh, 19vw)', lineHeight: 1 }}
-            >
-              <span className="guv-l gl-g"><span className="guv-ch">G</span></span>
-              <span className="guv-l gl-u"><span className="guv-ch">U</span></span>
-              <span className="guv-l gl-v"><span className="guv-ch">V</span></span>
-            </div>
-            <span
-              className="guv-nexus font-serif-edit"
-              style={{ color: INK, fontWeight: 400, fontStyle: 'italic', fontSize: 'min(7.5vh, 5.5vw)', letterSpacing: '0.06em' }}
-            >
-              Nexus
-            </span>
-          </div>
-        </div>
-        <p className="mt-3 font-mono2 text-[10px] uppercase tracking-[0.18em]" style={{ color: MUTED }}>
-          Fig. 01 — The GUV mark, always in motion
-        </p>
       </section>
 
       {/* ── 01 Practice ─────────────────────────────────── */}
