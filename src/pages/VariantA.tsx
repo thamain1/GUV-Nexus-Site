@@ -89,7 +89,7 @@ export default function VariantA() {
       <section className="px-6 md:px-12 pt-8 md:pt-10 pb-16 md:pb-24">
         <div style={{ border: `1px solid ${LINE}`, padding: 8 }}>
           <div
-            className="relative w-full aspect-[16/9] overflow-hidden flex items-center justify-center"
+            className="relative w-full aspect-[16/8] md:aspect-[16/6] overflow-hidden flex items-center justify-center"
             style={{ background: '#F5F3ED', perspective: '1100px' }}
           >
             {/* Outer ring — rotates opposite to the G */}
@@ -105,7 +105,7 @@ export default function VariantA() {
             {/* Logo reveal — letters spin off one another, shimmer rolls through, NEXUS rises */}
             <div
               className="guv-word font-display"
-              style={{ fontWeight: 600, fontSize: 'min(26vh, 19vw)', lineHeight: 1 }}
+              style={{ fontWeight: 600, fontSize: 'min(17vh, 12.5vw)', lineHeight: 1 }}
             >
               <span className="guv-l gl-g"><span className="guv-ch">G</span></span>
               <span className="guv-l gl-u"><span className="guv-ch">U</span></span>
@@ -113,7 +113,7 @@ export default function VariantA() {
             </div>
             <span
               className="guv-nexus font-display"
-              style={{ color: INK, fontWeight: 500, fontSize: 'min(5.5vh, 4vw)', letterSpacing: '0.35em' }}
+              style={{ color: INK, fontWeight: 500, fontSize: 'min(3.7vh, 2.7vw)', letterSpacing: '0.35em' }}
             >
               NEXUS
             </span>

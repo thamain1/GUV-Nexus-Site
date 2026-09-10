@@ -217,7 +217,7 @@
   .guv-nexus {
     position: absolute;
     left: 50%;
-    top: calc(50% + min(12vh, 8.5vw));
+    top: calc(50% + min(8vh, 5.7vw));
     transform: translate(calc(-50% + min(1.1vh, 0.75vw)), 0);
     opacity: 0;
     animation: guv-nexus-in 0.9s ease-out 3.4s both;
