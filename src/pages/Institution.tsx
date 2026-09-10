@@ -172,18 +172,18 @@ function Frieze({ ink }: { ink: string }) {
         <line x1="646" y1="262" x2="700" y2="260" strokeDasharray="2 10" strokeWidth="1.4" />
 
         {/* rising trend line tying the scene together */}
-        <path d="M 480 336 L 640 306 L 800 326 L 960 268 L 1120 214" strokeDasharray="1 12" strokeWidth="2.4" />
+        <path d="M 480 336 L 640 306 L 800 326 L 960 268 L 1120 214" strokeDasharray="1 12" strokeWidth="2.4" stroke={RED} />
         {[
           [480, 336],
           [640, 306],
           [800, 326],
           [960, 268],
         ].map(([x, y]) => (
-          <circle key={x} cx={x} cy={y} r="5" />
+          <circle key={x} cx={x} cy={y} r="5" stroke={RED} />
         ))}
-        <line x1="1120" y1="214" x2="1150" y2="202" />
-        <line x1="1150" y1="202" x2="1132" y2="200" strokeWidth="1.6" />
-        <line x1="1150" y1="202" x2="1146" y2="220" strokeWidth="1.6" />
+        <line x1="1120" y1="214" x2="1150" y2="202" stroke={RED} />
+        <line x1="1150" y1="202" x2="1132" y2="200" strokeWidth="1.6" stroke={RED} />
+        <line x1="1150" y1="202" x2="1146" y2="220" strokeWidth="1.6" stroke={RED} />
 
         {/* classical ledger hall */}
         <line x1="1168" y1="390" x2="1472" y2="390" />
@@ -287,7 +287,7 @@ export default function Institution({ blueprint = false }: { blueprint?: boolean
                 {ribbon.map((item) => (
                   <span key={`${dup}-${item}`} className="flex items-center">
                     <span className="px-8">{item}</span>
-                    <span style={{ color: page.acc }}>↗</span>
+                    <span style={{ color: RED }}>↗</span>
                   </span>
                 ))}
               </span>
@@ -336,7 +336,7 @@ export default function Institution({ blueprint = false }: { blueprint?: boolean
           {/* Roman numeral date */}
           <div className="mt-14 md:mt-20 flex items-center gap-6">
             <span className="flex-1" style={{ borderTop: `1px solid ${tHero.rule}` }} />
-            <p className="font-display uppercase text-base md:text-lg" style={{ fontWeight: 500, letterSpacing: '0.3em' }}>
+            <p className="font-display uppercase text-base md:text-lg" style={{ fontWeight: 500, letterSpacing: '0.3em', color: RED }}>
               IX · X · MMXXVI
             </p>
             <span className="flex-1" style={{ borderTop: `1px solid ${tHero.rule}` }} />
@@ -427,7 +427,7 @@ export default function Institution({ blueprint = false }: { blueprint?: boolean
               className="group grid md:grid-cols-[220px_1fr_1.2fr_40px] gap-4 md:gap-10 items-baseline py-10 md:py-12 transition-colors duration-300"
               style={{ borderBottom: `1px solid ${tCap.rule}` }}
             >
-              <span className="font-display uppercase text-xl md:text-2xl" style={{ fontWeight: 500, letterSpacing: '0.08em', color: tCap.acc }}>
+              <span className="font-display uppercase text-xl md:text-2xl" style={{ fontWeight: 500, letterSpacing: '0.08em', color: RED }}>
                 {c.n}
               </span>
               <h3 className="font-display uppercase text-2xl md:text-4xl leading-tight" style={{ fontWeight: 500, letterSpacing: '-0.01em' }}>
@@ -443,7 +443,7 @@ export default function Institution({ blueprint = false }: { blueprint?: boolean
                   ))}
                 </div>
               </div>
-              <span className="hidden md:block text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{ color: tCap.acc }}>
+              <span className="hidden md:block text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{ color: RED }}>
                 ↗
               </span>
             </article>
@@ -555,11 +555,11 @@ export default function Institution({ blueprint = false }: { blueprint?: boolean
 
       {/* ── Blue footer ─────────────────────────────────── */}
       <footer className="px-6 md:px-12 pt-20 md:pt-28 pb-10" style={{ background: BLUE, color: '#fff' }}>
-        <p className="font-mono2 text-[11px] uppercase tracking-[0.22em]" style={{ color: 'rgba(255,255,255,0.6)' }}>
+        <p className="font-mono2 text-[11px] uppercase tracking-[0.22em]" style={{ color: '#FF6B85' }}>
           06 — Contact
         </p>
         <a href="mailto:hello@guvnexus.com" className="block mt-10">
-          <span className="font-display uppercase block leading-[0.92] text-[13.5vw] md:text-[9.5vw]" style={{ fontWeight: 500, letterSpacing: '-0.02em' }}>
+          <span className="font-display uppercase block leading-[0.92] text-[13.5vw] md:text-[9.5vw]" style={{ fontWeight: 500, letterSpacing: '-0.02em', color: '#FAFAF7' }}>
             GUV Nexus
           </span>
         </a>
