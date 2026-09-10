@@ -342,4 +342,41 @@
     transform: translateX(0);
     color: #ffffff;
   }
+  /* Blueprint (dark) theme variants */
+  .guv-dark .guv-ch {
+    background-image: linear-gradient(110deg, #b9ccff 42%, #ffffff 50%, #b9ccff 58%);
+  }
+  .inst-pill-dark {
+    border-color: #a9c4ff;
+    color: #a9c4ff;
+  }
+  .inst-pill-dark:hover {
+    background: #a9c4ff;
+    color: #0b1226;
+  }
+  .inst-pill-dark .inst-corner {
+    border-color: #a9c4ff;
+    background: #0b1226;
+  }
+  .inst-row-dark .ir-name {
+    color: #f2f0ea;
+  }
+  .inst-row-dark .ir-muted {
+    color: #a09a8c;
+  }
+  .inst-row-dark .ir-arrow {
+    color: #a9c4ff;
+  }
+  .inst-row-dark:hover {
+    background: #a9c4ff;
+  }
+  .inst-row-dark:hover .ir-name {
+    color: #0b1226;
+  }
+  .inst-row-dark:hover .ir-muted {
+    color: rgba(11, 18, 38, 0.72);
+  }
+  .inst-row-dark:hover .ir-arrow {
+    color: #0b1226;
+  }
 }

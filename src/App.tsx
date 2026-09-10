@@ -12,6 +12,7 @@ export default function App() {
       <Route path="/classic" element={<Home />} />
       <Route path="/variant-b" element={<VariantB />} />
       <Route path="/institution" element={<Institution />} />
+      <Route path="/blueprint" element={<Institution blueprint />} />
     </Routes>
   )
 }

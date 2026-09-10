@@ -1,4 +1,6 @@
-// Institution — preview direction
+// Institution — preview direction, in two inks:
+//   paper     — warm editorial ground (default, /institution)
+//   blueprint — midnight navy ground, pale-blue line work (/blueprint)
 // Institutional editorial: massive uppercase Fraunces, Roman numerals,
 // blueprint line-art frieze, clipped-corner pills, hide-on-scroll nav,
 // scrolling ribbon, hover inversions, full blue footer.
@@ -63,12 +65,9 @@ const ribbon = [
   'Est. MMXXV',
 ]
 
-function Eyebrow({ children, light }: { children: React.ReactNode; light?: boolean }) {
+function Eyebrow({ children, color }: { children: React.ReactNode; color: string }) {
   return (
-    <p
-      className="font-mono2 text-[11px] uppercase tracking-[0.22em]"
-      style={{ color: light ? 'rgba(255,255,255,0.55)' : BLUE }}
-    >
+    <p className="font-mono2 text-[11px] uppercase tracking-[0.22em]" style={{ color }}>
       {children}
     </p>
   )
@@ -78,13 +77,15 @@ function InstPill({
   href,
   children,
   invert,
+  dark,
 }: {
   href: string
   children: React.ReactNode
   invert?: boolean
+  dark?: boolean
 }) {
   return (
-    <a href={href} className={`inst-pill ${invert ? 'inst-pill-inv' : ''}`}>
+    <a href={href} className={`inst-pill ${invert ? 'inst-pill-inv' : ''} ${dark ? 'inst-pill-dark' : ''}`}>
       <span className="inst-corner tl" />
       <span className="inst-corner tr" />
       <span className="inst-corner bl" />
@@ -96,9 +97,9 @@ function InstPill({
 }
 
 // Blueprint-style line illustration: construction, aviation and finance
-// rendered in a single Kentucky-blue ink on paper.
-function Frieze() {
-  const s = { fill: 'none', stroke: BLUE, strokeWidth: 2, strokeLinecap: 'round' as const, strokeLinejoin: 'round' as const }
+// rendered in a single ink.
+function Frieze({ ink }: { ink: string }) {
+  const s = { fill: 'none', stroke: ink, strokeWidth: 2, strokeLinecap: 'round' as const, strokeLinejoin: 'round' as const }
   return (
     <svg viewBox="0 0 1600 460" className="w-full h-auto block" role="img" aria-label="Line illustration of a tower crane, an airplane and a classical ledger hall">
       <g {...s}>
@@ -221,7 +222,7 @@ function Frieze() {
   )
 }
 
-export default function Institution() {
+export default function Institution({ blueprint = false }: { blueprint?: boolean }) {
   const [navHidden, setNavHidden] = useState(false)
   const lastY = useRef(0)
 
@@ -235,27 +236,41 @@ export default function Institution() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
+  // Theme tokens
+  const BG = blueprint ? '#0B1226' : PAPER
+  const PANEL = blueprint ? '#0E1734' : '#F5F3ED'
+  const FG = blueprint ? '#F2F0EA' : INK
+  const MUT = blueprint ? '#A09A8C' : MUTED
+  const RULE = blueprint ? 'rgba(242,240,234,0.16)' : LINE
+  const ACC = blueprint ? '#A9C4FF' : BLUE
+  const ringInk = blueprint ? '#F2F0EA' : INK
+  const eyebrow = blueprint ? 'rgba(242,240,234,0.55)' : BLUE
+  // Leadership interlude flips against the page ground
+  const leadBg = blueprint ? PAPER : INK
+  const leadFg = blueprint ? INK : PAPER
+  const leadMut = blueprint ? 'rgba(20,22,26,0.55)' : 'rgba(250,250,247,0.5)'
+
   return (
-    <main className="min-h-screen antialiased" style={{ background: PAPER, color: INK, fontFamily: "'Inter', sans-serif" }}>
+    <main className="min-h-screen antialiased" style={{ background: BG, color: FG, fontFamily: "'Inter', sans-serif" }}>
       {/* ── Fixed nav — hides on scroll down, returns on scroll up ── */}
       <header
         className={`inst-nav fixed top-0 left-0 right-0 z-50 grid grid-cols-[auto_1fr] md:grid-cols-[1fr_auto_1fr] items-center px-6 md:px-12 py-4 ${navHidden ? 'inst-nav-hidden' : ''}`}
-        style={{ background: PAPER, borderBottom: `1px solid ${LINE}` }}
+        style={{ background: BG, borderBottom: `1px solid ${RULE}` }}
       >
-        <nav className="hidden md:flex items-center gap-7 font-mono2 text-[10px] uppercase tracking-[0.18em]" style={{ color: MUTED }}>
-          <a href="#i-practice" className="hover:text-[#14161A] transition-colors">Practice</a>
-          <a href="#i-capabilities" className="hover:text-[#14161A] transition-colors">Capabilities</a>
-          <a href="#i-work" className="hover:text-[#14161A] transition-colors">Work</a>
-          <a href="#i-apps" className="hover:text-[#14161A] transition-colors">Apps</a>
+        <nav className="hidden md:flex items-center gap-7 font-mono2 text-[10px] uppercase tracking-[0.18em]" style={{ color: MUT }}>
+          <a href="#i-practice" className="hover:opacity-100 opacity-80 transition-opacity">Practice</a>
+          <a href="#i-capabilities" className="hover:opacity-100 opacity-80 transition-opacity">Capabilities</a>
+          <a href="#i-work" className="hover:opacity-100 opacity-80 transition-opacity">Work</a>
+          <a href="#i-apps" className="hover:opacity-100 opacity-80 transition-opacity">Apps</a>
         </nav>
-        <a href="/institution" className="font-serif-edit text-xl text-center whitespace-nowrap" style={{ fontWeight: 600, letterSpacing: '-0.01em' }}>
+        <a href={blueprint ? '/blueprint' : '/institution'} className="font-serif-edit text-xl text-center whitespace-nowrap" style={{ fontWeight: 600, letterSpacing: '-0.01em' }}>
           GUV Nexus<span style={{ color: RED }}>.</span>
         </a>
         <div className="flex justify-end">
           <a
             href="mailto:hello@guvnexus.com"
-            className="rounded-full px-4 md:px-5 py-2 md:py-2.5 font-mono2 text-[9px] md:text-[10px] uppercase tracking-[0.14em] whitespace-nowrap text-white transition-opacity hover:opacity-85"
-            style={{ background: INK }}
+            className="rounded-full px-4 md:px-5 py-2 md:py-2.5 font-mono2 text-[9px] md:text-[10px] uppercase tracking-[0.14em] whitespace-nowrap transition-opacity hover:opacity-85"
+            style={blueprint ? { background: '#F2F0EA', color: '#0B1226' } : { background: INK, color: '#fff' }}
           >
             Start a conversation
           </a>
@@ -264,14 +279,14 @@ export default function Institution() {
 
       <div className="pt-[64px]">
         {/* ── News ribbon ── */}
-        <div className="overflow-hidden py-2.5" style={{ borderBottom: `1px solid ${LINE}` }}>
-          <div className="animate-marquee flex whitespace-nowrap font-mono2 text-[10px] uppercase tracking-[0.2em]" style={{ color: MUTED }}>
+        <div className="overflow-hidden py-2.5" style={{ borderBottom: `1px solid ${RULE}` }}>
+          <div className="animate-marquee flex whitespace-nowrap font-mono2 text-[10px] uppercase tracking-[0.2em]" style={{ color: MUT }}>
             {[0, 1].map((dup) => (
               <span key={dup} className="flex shrink-0">
                 {ribbon.map((item) => (
                   <span key={`${dup}-${item}`} className="flex items-center">
                     <span className="px-8">{item}</span>
-                    <span style={{ color: BLUE }}>↗</span>
+                    <span style={{ color: ACC }}>↗</span>
                   </span>
                 ))}
               </span>
@@ -281,24 +296,24 @@ export default function Institution() {
 
         {/* ── Hero — animated GUV mark, preserved verbatim ── */}
         <section className="px-6 md:px-12 pt-8 md:pt-10 pb-10 md:pb-14">
-          <div style={{ border: `1px solid ${LINE}`, padding: 8 }}>
+          <div style={{ border: `1px solid ${RULE}`, padding: 8 }}>
             <div
               className="relative w-full aspect-[16/8] md:aspect-[16/6] overflow-hidden flex items-center justify-center"
-              style={{ background: '#F5F3ED', perspective: '1100px' }}
+              style={{ background: PANEL, perspective: '1100px' }}
             >
               {/* Outer ring — rotates opposite to the G */}
               <svg className="hero-ring-outer absolute h-[78%] aspect-square" viewBox="0 0 400 400" aria-hidden="true">
-                <circle cx="200" cy="200" r="192" fill="none" stroke={INK} strokeOpacity="0.14" strokeWidth="1" />
-                <circle cx="200" cy="200" r="192" fill="none" stroke={BLUE} strokeWidth="2.5" strokeLinecap="round" strokeDasharray="150 1056" />
+                <circle cx="200" cy="200" r="192" fill="none" stroke={ringInk} strokeOpacity={blueprint ? '0.22' : '0.14'} strokeWidth="1" />
+                <circle cx="200" cy="200" r="192" fill="none" stroke={blueprint ? '#A9C4FF' : BLUE} strokeWidth="2.5" strokeLinecap="round" strokeDasharray="150 1056" />
                 <circle cx="200" cy="200" r="192" fill="none" stroke={RED} strokeWidth="2.5" strokeLinecap="round" strokeDasharray="70 1136" strokeDashoffset="-500" />
               </svg>
               {/* Inner dashed ring — follows the G's direction */}
               <svg className="hero-ring-inner absolute h-[60%] aspect-square" viewBox="0 0 400 400" aria-hidden="true">
-                <circle cx="200" cy="200" r="192" fill="none" stroke={INK} strokeOpacity="0.35" strokeWidth="1" strokeDasharray="3 12" />
+                <circle cx="200" cy="200" r="192" fill="none" stroke={ringInk} strokeOpacity={blueprint ? '0.4' : '0.35'} strokeWidth="1" strokeDasharray="3 12" />
               </svg>
               {/* Logo reveal — letters spin off one another, shimmer rolls through, NEXUS rises */}
               <div
-                className="guv-word font-display"
+                className={`guv-word font-display ${blueprint ? 'guv-dark' : ''}`}
                 style={{ fontWeight: 600, fontSize: 'min(17vh, 12.5vw)', lineHeight: 1 }}
               >
                 <span className="guv-l gl-g"><span className="guv-ch">G</span></span>
@@ -307,23 +322,23 @@ export default function Institution() {
               </div>
               <span
                 className="guv-nexus font-display"
-                style={{ color: INK, fontWeight: 500, fontSize: 'min(3.7vh, 2.7vw)', letterSpacing: '0.35em' }}
+                style={{ color: FG, fontWeight: 500, fontSize: 'min(3.7vh, 2.7vw)', letterSpacing: '0.35em' }}
               >
                 NEXUS
               </span>
             </div>
           </div>
-          <p className="mt-3 font-mono2 text-[10px] uppercase tracking-[0.18em]" style={{ color: MUTED }}>
+          <p className="mt-3 font-mono2 text-[10px] uppercase tracking-[0.18em]" style={{ color: MUT }}>
             Fig. 01 — The GUV mark, always in motion
           </p>
 
           {/* Roman numeral date */}
           <div className="mt-14 md:mt-20 flex items-center gap-6">
-            <span className="flex-1" style={{ borderTop: `1px solid ${LINE}` }} />
+            <span className="flex-1" style={{ borderTop: `1px solid ${RULE}` }} />
             <p className="font-serif-edit text-lg md:text-xl tracking-tight" style={{ fontWeight: 400 }}>
               IX · X · MMXXVI
             </p>
-            <span className="flex-1" style={{ borderTop: `1px solid ${LINE}` }} />
+            <span className="flex-1" style={{ borderTop: `1px solid ${RULE}` }} />
           </div>
 
           {/* Massive uppercase headline */}
@@ -331,46 +346,46 @@ export default function Institution() {
             className="font-serif-edit mt-8 uppercase text-[11.5vw] md:text-[7.4vw] leading-[0.86]"
             style={{ fontWeight: 350, letterSpacing: '-0.045em' }}
           >
-            Software that solves <span style={{ color: BLUE }}>real</span> business problems<span style={{ color: RED }}>.</span>
+            Software that solves <span style={{ color: ACC }}>real</span> business problems<span style={{ color: RED }}>.</span>
           </h1>
 
           <div className="mt-12 grid md:grid-cols-2 gap-10 items-end">
-            <p className="max-w-md text-base md:text-lg leading-relaxed" style={{ color: MUTED }}>
+            <p className="max-w-md text-base md:text-lg leading-relaxed" style={{ color: MUT }}>
               GUV Nexus designs, builds and operates focused applications for
               specific, unglamorous business challenges — alongside a handful of
               senior-only client engagements each year.
             </p>
             <div className="flex md:justify-end flex-wrap gap-5">
-              <InstPill href="#i-work">Selected work</InstPill>
-              <InstPill href="#i-apps">The app portfolio</InstPill>
+              <InstPill href="#i-work" dark={blueprint}>Selected work</InstPill>
+              <InstPill href="#i-apps" dark={blueprint}>The app portfolio</InstPill>
             </div>
           </div>
         </section>
 
         {/* ── Line-art frieze ── */}
         <section className="px-6 md:px-12 pb-16 md:pb-24">
-          <div style={{ border: `1px solid ${LINE}`, padding: 8 }}>
-            <div className="overflow-hidden" style={{ background: '#F5F3ED' }}>
-              <Frieze />
+          <div style={{ border: `1px solid ${RULE}`, padding: 8 }}>
+            <div className="overflow-hidden" style={{ background: PANEL }}>
+              <Frieze ink={blueprint ? '#A9C4FF' : BLUE} />
             </div>
           </div>
-          <p className="mt-3 font-mono2 text-[10px] uppercase tracking-[0.18em]" style={{ color: MUTED }}>
+          <p className="mt-3 font-mono2 text-[10px] uppercase tracking-[0.18em]" style={{ color: MUT }}>
             Fig. 02 — Construction, aviation and finance, drawn in one ink
           </p>
         </section>
       </div>
 
       {/* ── 01 Practice ─────────────────────────────────── */}
-      <section id="i-practice" className="px-6 md:px-12 py-20 md:py-32" style={{ borderTop: `1px solid ${LINE}` }}>
+      <section id="i-practice" className="px-6 md:px-12 py-20 md:py-32" style={{ borderTop: `1px solid ${RULE}` }}>
         <div className="grid md:grid-cols-[220px_1fr] gap-10">
-          <Eyebrow>01 — The practice</Eyebrow>
+          <Eyebrow color={eyebrow}>01 — The practice</Eyebrow>
           <div>
             <h2 className="font-serif-edit uppercase text-4xl md:text-6xl leading-[0.95]" style={{ fontWeight: 350, letterSpacing: '-0.03em' }}>
               Small by design.
               <br />
-              <span style={{ color: MUTED }}>Serious by default.</span>
+              <span style={{ color: MUT }}>Serious by default.</span>
             </h2>
-            <p className="mt-8 max-w-xl text-base md:text-lg leading-relaxed" style={{ color: MUTED }}>
+            <p className="mt-8 max-w-xl text-base md:text-lg leading-relaxed" style={{ color: MUT }}>
               GUV Nexus is a boutique technology studio. Alongside a handful of
               client engagements a year, we design, build and operate our own
               portfolio of applications. Senior people only, on everything we
@@ -379,15 +394,15 @@ export default function Institution() {
           </div>
         </div>
 
-        <div className="mt-20 grid grid-cols-2 md:grid-cols-4" style={{ border: `1px solid ${LINE}` }}>
+        <div className="mt-20 grid grid-cols-2 md:grid-cols-4" style={{ border: `1px solid ${RULE}` }}>
           {stats.map((s, i) => (
             <div
               key={s.label}
               className="p-6 md:p-10"
-              style={{ borderLeft: i > 0 ? `1px solid ${LINE}` : undefined }}
+              style={{ borderLeft: i > 0 ? `1px solid ${RULE}` : undefined }}
             >
               <div className="font-serif-edit text-5xl md:text-6xl" style={{ fontWeight: 350 }}>{s.value}</div>
-              <div className="mt-3 font-mono2 text-[10px] uppercase tracking-[0.18em]" style={{ color: MUTED }}>
+              <div className="mt-3 font-mono2 text-[10px] uppercase tracking-[0.18em]" style={{ color: MUT }}>
                 {s.label}
               </div>
             </div>
@@ -396,38 +411,38 @@ export default function Institution() {
       </section>
 
       {/* ── 02 Capabilities ─────────────────────────────── */}
-      <section id="i-capabilities" className="px-6 md:px-12 py-20 md:py-32" style={{ borderTop: `1px solid ${LINE}` }}>
+      <section id="i-capabilities" className="px-6 md:px-12 py-20 md:py-32" style={{ borderTop: `1px solid ${RULE}` }}>
         <div className="grid md:grid-cols-[220px_1fr] gap-10">
-          <Eyebrow>02 — Capabilities</Eyebrow>
+          <Eyebrow color={eyebrow}>02 — Capabilities</Eyebrow>
           <h2 className="font-serif-edit uppercase text-4xl md:text-6xl leading-[0.95]" style={{ fontWeight: 350, letterSpacing: '-0.03em' }}>
-            Four disciplines, <span style={{ color: MUTED }}>one team.</span>
+            Four disciplines, <span style={{ color: MUT }}>one team.</span>
           </h2>
         </div>
 
-        <div className="mt-16" style={{ borderTop: `1px solid ${LINE}` }}>
+        <div className="mt-16" style={{ borderTop: `1px solid ${RULE}` }}>
           {capabilities.map((c) => (
             <article
               key={c.n}
               className="group grid md:grid-cols-[220px_1fr_1.2fr_40px] gap-4 md:gap-10 items-baseline py-10 md:py-12 transition-colors duration-300"
-              style={{ borderBottom: `1px solid ${LINE}` }}
+              style={{ borderBottom: `1px solid ${RULE}` }}
             >
-              <span className="font-serif-edit text-2xl md:text-3xl" style={{ fontWeight: 350, color: BLUE }}>
+              <span className="font-serif-edit text-2xl md:text-3xl" style={{ fontWeight: 350, color: ACC }}>
                 {c.n}
               </span>
               <h3 className="font-serif-edit uppercase text-3xl md:text-[2.4rem] leading-tight" style={{ fontWeight: 350, letterSpacing: '-0.02em' }}>
                 {c.title}
               </h3>
               <div>
-                <p className="leading-relaxed max-w-xl" style={{ color: MUTED }}>{c.desc}</p>
+                <p className="leading-relaxed max-w-xl" style={{ color: MUT }}>{c.desc}</p>
                 <div className="mt-4 flex flex-wrap gap-x-6 gap-y-2">
                   {c.tags.map((t) => (
-                    <span key={t} className="font-mono2 text-[10px] uppercase tracking-[0.18em]" style={{ color: MUTED }}>
+                    <span key={t} className="font-mono2 text-[10px] uppercase tracking-[0.18em]" style={{ color: MUT }}>
                       {t}
                     </span>
                   ))}
                 </div>
               </div>
-              <span className="hidden md:block text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{ color: BLUE }}>
+              <span className="hidden md:block text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{ color: ACC }}>
                 ↗
               </span>
             </article>
@@ -435,10 +450,10 @@ export default function Institution() {
         </div>
       </section>
 
-      {/* ── Dark interlude: Leadership ──────────────────── */}
-      <section className="px-6 md:px-12 py-24 md:py-36" style={{ background: INK, color: PAPER }}>
+      {/* ── Interlude: Leadership (flips against the page ground) ── */}
+      <section className="px-6 md:px-12 py-24 md:py-36" style={{ background: leadBg, color: leadFg }}>
         <div className="grid md:grid-cols-[220px_1fr] gap-10">
-          <Eyebrow light>03 — Leadership</Eyebrow>
+          <Eyebrow color={blueprint ? BLUE : 'rgba(255,255,255,0.55)'}>03 — Leadership</Eyebrow>
           <div>
             <p className="font-serif-edit text-3xl md:text-5xl leading-[1.15] max-w-4xl" style={{ fontWeight: 400 }}>
               GUV Nexus is led by{' '}
@@ -447,7 +462,7 @@ export default function Institution() {
               researchers and designers who have shipped at scale and chose to
               work small.
             </p>
-            <div className="mt-12 flex flex-wrap gap-x-10 gap-y-3 font-mono2 text-[10px] uppercase tracking-[0.18em]" style={{ color: 'rgba(250,250,247,0.5)' }}>
+            <div className="mt-12 flex flex-wrap gap-x-10 gap-y-3 font-mono2 text-[10px] uppercase tracking-[0.18em]" style={{ color: leadMut }}>
               <span>Principal — B. Underhill</span>
               <span>Senior teams only</span>
               <span>US & EU time zones</span>
@@ -459,9 +474,9 @@ export default function Institution() {
       {/* ── 04 Selected work ────────────────────────────── */}
       <section id="i-work" className="px-6 md:px-12 py-20 md:py-32">
         <div className="grid md:grid-cols-[220px_1fr] gap-10">
-          <Eyebrow>04 — Selected work</Eyebrow>
+          <Eyebrow color={eyebrow}>04 — Selected work</Eyebrow>
           <h2 className="font-serif-edit uppercase text-4xl md:text-6xl leading-[0.95]" style={{ fontWeight: 350, letterSpacing: '-0.03em' }}>
-            Proof, <span style={{ color: MUTED }}>not promises.</span>
+            Proof, <span style={{ color: MUT }}>not promises.</span>
           </h2>
         </div>
 
@@ -471,39 +486,39 @@ export default function Institution() {
             { img: `${BASE}media/work-intelligence.jpg`, name: 'Vanta Index', scope: 'Applied ML for private markets', year: '2024', tags: ['Applied intelligence', 'Retrieval systems'] },
           ].map((p) => (
             <div key={p.name}>
-              <div style={{ border: `1px solid ${LINE}`, padding: 8 }}>
+              <div style={{ border: `1px solid ${RULE}`, padding: 8 }}>
                 <img src={p.img} alt={p.name} className="w-full aspect-[16/9] object-cover" loading="lazy" />
               </div>
-              <div className="mt-5 flex items-baseline justify-between pt-4" style={{ borderTop: `1px solid ${LINE}` }}>
+              <div className="mt-5 flex items-baseline justify-between pt-4" style={{ borderTop: `1px solid ${RULE}` }}>
                 <div>
                   <h3 className="font-serif-edit uppercase text-2xl md:text-4xl" style={{ fontWeight: 350, letterSpacing: '-0.02em' }}>{p.name}</h3>
-                  <p className="mt-1 text-sm" style={{ color: MUTED }}>{p.scope}</p>
+                  <p className="mt-1 text-sm" style={{ color: MUT }}>{p.scope}</p>
                 </div>
-                <span className="font-mono2 text-[11px]" style={{ color: MUTED }}>{p.year}</span>
+                <span className="font-mono2 text-[11px]" style={{ color: MUT }}>{p.year}</span>
               </div>
               <div className="mt-3 flex gap-5">
                 {p.tags.map((t) => (
-                  <span key={t} className="font-mono2 text-[10px] uppercase tracking-[0.18em]" style={{ color: MUTED }}>{t}</span>
+                  <span key={t} className="font-mono2 text-[10px] uppercase tracking-[0.18em]" style={{ color: MUT }}>{t}</span>
                 ))}
               </div>
             </div>
           ))}
         </div>
 
-        <p className="mt-16 font-mono2 text-[11px] uppercase tracking-[0.18em] max-w-md" style={{ color: MUTED }}>
+        <p className="mt-16 font-mono2 text-[11px] uppercase tracking-[0.18em] max-w-md" style={{ color: MUT }}>
           Client names anonymized under NDA. Full case studies shared on request.
         </p>
       </section>
 
       {/* ── 05 App portfolio — index with hover inversion ── */}
-      <section id="i-apps" className="px-6 md:px-12 py-20 md:py-32" style={{ borderTop: `1px solid ${LINE}` }}>
+      <section id="i-apps" className="px-6 md:px-12 py-20 md:py-32" style={{ borderTop: `1px solid ${RULE}` }}>
         <div className="grid md:grid-cols-[220px_1fr] gap-10">
-          <Eyebrow>05 — The app portfolio</Eyebrow>
+          <Eyebrow color={eyebrow}>05 — The app portfolio</Eyebrow>
           <div>
             <h2 className="font-serif-edit uppercase text-4xl md:text-6xl leading-[0.95]" style={{ fontWeight: 350, letterSpacing: '-0.03em' }}>
-              Apps that earn <span style={{ color: MUTED }}>their keep.</span>
+              Apps that earn <span style={{ color: MUT }}>their keep.</span>
             </h2>
-            <p className="mt-8 max-w-xl leading-relaxed" style={{ color: MUTED }}>
+            <p className="mt-8 max-w-xl leading-relaxed" style={{ color: MUT }}>
               Alongside client work, GUV Nexus designs, builds and operates a
               growing portfolio of focused applications — each one aimed at a
               specific, unglamorous business problem worth solving properly.
@@ -511,12 +526,12 @@ export default function Institution() {
           </div>
         </div>
 
-        <div className="mt-16" style={{ borderTop: `1px solid ${LINE}` }}>
+        <div className="mt-16" style={{ borderTop: `1px solid ${RULE}` }}>
           {apps.map((a) => (
             <article
               key={a.n}
-              className="inst-row grid md:grid-cols-[110px_1.1fr_1.4fr_auto_40px] gap-3 md:gap-8 items-start md:items-center px-4 md:px-6 py-8 md:py-9"
-              style={{ borderBottom: `1px solid ${LINE}` }}
+              className={`inst-row ${blueprint ? 'inst-row-dark' : ''} grid md:grid-cols-[110px_1.1fr_1.4fr_auto_40px] gap-3 md:gap-8 items-start md:items-center px-4 md:px-6 py-8 md:py-9`}
+              style={{ borderBottom: `1px solid ${RULE}` }}
             >
               <span className="ir-muted font-mono2 text-[11px] tracking-[0.14em]">{a.n}</span>
               <div>
@@ -532,7 +547,7 @@ export default function Institution() {
           ))}
         </div>
 
-        <p className="mt-12 font-mono2 text-[11px] uppercase tracking-[0.18em] max-w-lg" style={{ color: MUTED }}>
+        <p className="mt-12 font-mono2 text-[11px] uppercase tracking-[0.18em] max-w-lg" style={{ color: MUT }}>
           Portfolio names shown pre-launch branding. Demos and access on request.
         </p>
       </section>
