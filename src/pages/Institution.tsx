@@ -67,7 +67,7 @@ const ribbon = [
 
 function Eyebrow({ children, color }: { children: React.ReactNode; color: string }) {
   return (
-    <p className="font-mono2 text-[11px] uppercase tracking-[0.22em]" style={{ color }}>
+    <p className="font-mono2 text-[12.5px] uppercase tracking-[0.22em]" style={{ color }}>
       {children}
     </p>
   )
@@ -258,7 +258,7 @@ export default function Institution({ blueprint = false }: { blueprint?: boolean
         className={`inst-nav fixed top-0 left-0 right-0 z-50 grid grid-cols-[auto_1fr] md:grid-cols-[1fr_auto_1fr] items-center px-6 md:px-12 py-4 ${navHidden ? 'inst-nav-hidden' : ''}`}
         style={{ background: page.bg, borderBottom: `1px solid ${page.rule}` }}
       >
-        <nav className="hidden md:flex items-center gap-7 font-mono2 text-[10px] uppercase tracking-[0.18em]" style={{ color: page.mut }}>
+        <nav className="hidden md:flex items-center gap-7 font-mono2 text-[12px] uppercase tracking-[0.18em]" style={{ color: page.mut }}>
           <a href="#i-practice" className="hover:opacity-100 opacity-80 transition-opacity">Practice</a>
           <a href="#i-capabilities" className="hover:opacity-100 opacity-80 transition-opacity">Capabilities</a>
           <a href="#i-work" className="hover:opacity-100 opacity-80 transition-opacity">Work</a>
@@ -270,7 +270,7 @@ export default function Institution({ blueprint = false }: { blueprint?: boolean
         <div className="flex justify-end">
           <a
             href="mailto:hello@guvnexus.com"
-            className="rounded-full px-4 md:px-5 py-2 md:py-2.5 font-mono2 text-[9px] md:text-[10px] uppercase tracking-[0.14em] whitespace-nowrap transition-opacity hover:opacity-85"
+            className="rounded-full px-4 md:px-5 py-2 md:py-2.5 font-mono2 text-[12.5px] md:text-[12px] uppercase tracking-[0.14em] whitespace-nowrap transition-opacity hover:opacity-85"
             style={blueprint ? { background: '#FAFAF7', color: '#0C1A40' } : { background: INK, color: '#fff' }}
           >
             Start a conversation
@@ -281,7 +281,7 @@ export default function Institution({ blueprint = false }: { blueprint?: boolean
       <div className="pt-[64px]">
         {/* ── News ribbon ── */}
         <div className="overflow-hidden py-2.5" style={{ borderBottom: `1px solid ${page.rule}` }}>
-          <div className="animate-marquee flex whitespace-nowrap font-mono2 text-[10px] uppercase tracking-[0.2em]" style={{ color: page.mut }}>
+          <div className="animate-marquee flex whitespace-nowrap font-mono2 text-[12px] uppercase tracking-[0.2em]" style={{ color: page.mut }}>
             {[0, 1].map((dup) => (
               <span key={dup} className="flex shrink-0">
                 {ribbon.map((item) => (
@@ -329,7 +329,7 @@ export default function Institution({ blueprint = false }: { blueprint?: boolean
               </span>
             </div>
           </div>
-          <p className="mt-3 font-mono2 text-[10px] uppercase tracking-[0.18em]" style={{ color: tHero.mut }}>
+          <p className="mt-3 font-mono2 text-[12px] uppercase tracking-[0.18em]" style={{ color: tHero.mut }}>
             Fig. 01 — The GUV mark, always in motion
           </p>
 
@@ -370,7 +370,7 @@ export default function Institution({ blueprint = false }: { blueprint?: boolean
               <Frieze ink={tHero.acc} />
             </div>
           </div>
-          <p className="mt-3 font-mono2 text-[10px] uppercase tracking-[0.18em]" style={{ color: tHero.mut }}>
+          <p className="mt-3 font-mono2 text-[12px] uppercase tracking-[0.18em]" style={{ color: tHero.mut }}>
             Fig. 02 — Construction, aviation and finance, drawn in one ink
           </p>
         </section>
@@ -403,7 +403,7 @@ export default function Institution({ blueprint = false }: { blueprint?: boolean
               style={{ borderLeft: i > 0 ? `1px solid ${tPractice.rule}` : undefined }}
             >
               <div className="font-display text-5xl md:text-6xl" style={{ fontWeight: 500 }}>{s.value}</div>
-              <div className="mt-3 font-mono2 text-[10px] uppercase tracking-[0.18em]" style={{ color: tPractice.mut }}>
+              <div className="mt-3 font-mono2 text-[12px] uppercase tracking-[0.18em]" style={{ color: tPractice.mut }}>
                 {s.label}
               </div>
             </div>
@@ -437,7 +437,7 @@ export default function Institution({ blueprint = false }: { blueprint?: boolean
                 <p className="leading-relaxed max-w-xl" style={{ color: tCap.mut }}>{c.desc}</p>
                 <div className="mt-4 flex flex-wrap gap-x-6 gap-y-2">
                   {c.tags.map((t) => (
-                    <span key={t} className="font-mono2 text-[10px] uppercase tracking-[0.18em]" style={{ color: tCap.mut }}>
+                    <span key={t} className="font-mono2 text-[12px] uppercase tracking-[0.18em]" style={{ color: tCap.mut }}>
                       {t}
                     </span>
                   ))}
@@ -463,7 +463,7 @@ export default function Institution({ blueprint = false }: { blueprint?: boolean
               researchers and designers who have shipped at scale and chose to
               work small.
             </p>
-            <div className="mt-12 flex flex-wrap gap-x-10 gap-y-3 font-mono2 text-[10px] uppercase tracking-[0.18em]" style={{ color: tLead.mut }}>
+            <div className="mt-12 flex flex-wrap gap-x-10 gap-y-3 font-mono2 text-[12px] uppercase tracking-[0.18em]" style={{ color: tLead.mut }}>
               <span>Principal — B. Underhill</span>
               <span>Senior teams only</span>
               <span>US & EU time zones</span>
@@ -495,18 +495,18 @@ export default function Institution({ blueprint = false }: { blueprint?: boolean
                   <h3 className="font-display uppercase text-2xl md:text-3xl" style={{ fontWeight: 500, letterSpacing: '-0.01em' }}>{p.name}</h3>
                   <p className="mt-1 text-sm" style={{ color: tWork.mut }}>{p.scope}</p>
                 </div>
-                <span className="font-mono2 text-[11px]" style={{ color: tWork.mut }}>{p.year}</span>
+                <span className="font-mono2 text-[12.5px]" style={{ color: tWork.mut }}>{p.year}</span>
               </div>
               <div className="mt-3 flex gap-5">
                 {p.tags.map((t) => (
-                  <span key={t} className="font-mono2 text-[10px] uppercase tracking-[0.18em]" style={{ color: tWork.mut }}>{t}</span>
+                  <span key={t} className="font-mono2 text-[12px] uppercase tracking-[0.18em]" style={{ color: tWork.mut }}>{t}</span>
                 ))}
               </div>
             </div>
           ))}
         </div>
 
-        <p className="mt-16 font-mono2 text-[11px] uppercase tracking-[0.18em] max-w-md" style={{ color: tWork.mut }}>
+        <p className="mt-16 font-mono2 text-[12.5px] uppercase tracking-[0.18em] max-w-md" style={{ color: tWork.mut }}>
           Client names anonymized under NDA. Full case studies shared on request.
         </p>
       </section>
@@ -534,28 +534,28 @@ export default function Institution({ blueprint = false }: { blueprint?: boolean
               className={`inst-row grid md:grid-cols-[110px_1.1fr_1.4fr_auto_40px] gap-3 md:gap-8 items-start md:items-center px-4 md:px-6 py-8 md:py-9`}
               style={{ borderBottom: `1px solid ${tApps.rule}` }}
             >
-              <span className="ir-muted font-mono2 text-[11px] tracking-[0.14em]">{a.n}</span>
+              <span className="ir-muted font-mono2 text-[12.5px] tracking-[0.14em]">{a.n}</span>
               <div>
                 <h3 className="ir-name font-display uppercase text-2xl md:text-3xl" style={{ fontWeight: 500, letterSpacing: '-0.01em' }}>{a.name}</h3>
-                <p className="ir-muted mt-1 font-mono2 text-[10px] uppercase tracking-[0.18em]">
+                <p className="ir-muted mt-1 font-mono2 text-[12px] uppercase tracking-[0.18em]">
                   {a.domain} · {a.status}
                 </p>
               </div>
               <p className="ir-muted leading-relaxed max-w-xl text-[15px]">{a.challenge}</p>
-              <span className="ir-muted hidden md:block font-mono2 text-[11px]">{a.year}</span>
+              <span className="ir-muted hidden md:block font-mono2 text-[12.5px]">{a.year}</span>
               <span className="ir-arrow hidden md:block text-2xl">↗</span>
             </article>
           ))}
         </div>
 
-        <p className="mt-12 font-mono2 text-[11px] uppercase tracking-[0.18em] max-w-lg" style={{ color: tApps.mut }}>
+        <p className="mt-12 font-mono2 text-[12.5px] uppercase tracking-[0.18em] max-w-lg" style={{ color: tApps.mut }}>
           Portfolio names shown pre-launch branding. Demos and access on request.
         </p>
       </section>
 
       {/* ── Blue footer ─────────────────────────────────── */}
       <footer className="px-6 md:px-12 pt-20 md:pt-28 pb-10" style={{ background: BLUE, color: '#fff' }}>
-        <p className="font-mono2 text-[11px] uppercase tracking-[0.22em]" style={{ color: '#FF6B85' }}>
+        <p className="font-mono2 text-[12.5px] uppercase tracking-[0.22em]" style={{ color: '#FF6B85' }}>
           06 — Contact
         </p>
         <a href="mailto:hello@guvnexus.com" className="block mt-10">
@@ -567,7 +567,7 @@ export default function Institution({ blueprint = false }: { blueprint?: boolean
           <InstPill href="mailto:hello@guvnexus.com" invert>
             hello@guvnexus.com
           </InstPill>
-          <div className="flex flex-wrap gap-x-8 gap-y-3 font-mono2 text-[10px] uppercase tracking-[0.18em]" style={{ color: 'rgba(255,255,255,0.65)' }}>
+          <div className="flex flex-wrap gap-x-8 gap-y-3 font-mono2 text-[12px] uppercase tracking-[0.18em]" style={{ color: 'rgba(255,255,255,0.65)' }}>
             <a href="#i-practice" className="hover:text-white transition-colors">Practice</a>
             <a href="#i-capabilities" className="hover:text-white transition-colors">Capabilities</a>
             <a href="#i-work" className="hover:text-white transition-colors">Work</a>
@@ -575,7 +575,7 @@ export default function Institution({ blueprint = false }: { blueprint?: boolean
           </div>
         </div>
         <div
-          className="mt-16 pt-6 flex flex-col md:flex-row justify-between gap-3 font-mono2 text-[10px] uppercase tracking-[0.18em]"
+          className="mt-16 pt-6 flex flex-col md:flex-row justify-between gap-3 font-mono2 text-[12px] uppercase tracking-[0.18em]"
           style={{ borderTop: '1px solid rgba(255,255,255,0.25)', color: 'rgba(255,255,255,0.55)' }}
         >
           <span>© 2026 GUV Nexus LLC</span>
