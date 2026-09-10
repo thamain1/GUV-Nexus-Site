@@ -264,7 +264,7 @@ export default function Institution({ blueprint = false }: { blueprint?: boolean
           <a href="#i-apps" className="hover:opacity-100 opacity-80 transition-opacity">Apps</a>
         </nav>
         <a href={blueprint ? '/blueprint' : '/institution'} className="font-serif-edit text-xl text-center whitespace-nowrap" style={{ fontWeight: 600, letterSpacing: '-0.01em' }}>
-          GUV Nexus<span style={{ color: RED }}>.</span>
+          GUV Nexus
         </a>
         <div className="flex justify-end">
           <a
@@ -559,7 +559,7 @@ export default function Institution({ blueprint = false }: { blueprint?: boolean
         </p>
         <a href="mailto:hello@guvnexus.com" className="block mt-10">
           <span className="font-serif-edit uppercase block leading-[0.85] text-[13.5vw] md:text-[9.5vw]" style={{ fontWeight: 350, letterSpacing: '-0.045em' }}>
-            GUV Nexus<span style={{ color: '#FF6B85' }}>.</span>
+            GUV Nexus
           </span>
         </a>
         <div className="mt-14 flex flex-col md:flex-row md:items-center justify-between gap-8">

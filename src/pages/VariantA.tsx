@@ -68,7 +68,7 @@ export default function VariantA() {
       {/* ── Nav ─────────────────────────────────────────── */}
       <header className="flex items-center justify-between px-6 md:px-12 py-6" style={{ borderBottom: `1px solid ${LINE}` }}>
         <a href="/" className="font-serif-edit text-xl" style={{ fontWeight: 600, letterSpacing: '-0.01em' }}>
-          GUV Nexus<span style={{ color: RED }}>.</span>
+          GUV Nexus
         </a>
         <nav className="hidden md:flex items-center gap-8 font-mono2 text-[11px] uppercase tracking-[0.18em]" style={{ color: MUTED }}>
           <a href="#a-practice" className="hover:text-[#14161A] transition-colors">Practice</a>
