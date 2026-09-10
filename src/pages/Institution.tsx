@@ -236,41 +236,42 @@ export default function Institution({ blueprint = false }: { blueprint?: boolean
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  // Theme tokens
-  const BG = blueprint ? '#0B1226' : PAPER
-  const PANEL = blueprint ? '#0E1734' : '#F5F3ED'
-  const FG = blueprint ? '#F2F0EA' : INK
-  const MUT = blueprint ? '#A09A8C' : MUTED
-  const RULE = blueprint ? 'rgba(242,240,234,0.16)' : LINE
-  const ACC = blueprint ? '#A9C4FF' : BLUE
-  const ringInk = blueprint ? '#F2F0EA' : INK
-  const eyebrow = blueprint ? 'rgba(242,240,234,0.55)' : BLUE
-  // Leadership interlude flips against the page ground
-  const leadBg = blueprint ? PAPER : INK
-  const leadFg = blueprint ? INK : PAPER
-  const leadMut = blueprint ? 'rgba(20,22,26,0.55)' : 'rgba(250,250,247,0.5)'
+  // Section grounds — light ink and dark ink
+  const L = { bg: PAPER, panel: '#F5F3ED', fg: INK, mut: MUTED, rule: LINE, acc: BLUE }
+  const D = blueprint
+    ? { bg: '#0C1A40', panel: '#12224E', fg: '#FAFAF7', mut: '#B4AE9F', rule: 'rgba(250,250,247,0.16)', acc: '#A9C4FF' }
+    : L
+  // Page ground + section alternation (blueprint alternates; paper stays light throughout)
+  const page = blueprint ? D : L
+  const tHero = page
+  const tPractice = blueprint ? L : L
+  const tCap = page
+  const tLead = blueprint ? L : { ...L, bg: INK, fg: PAPER, mut: 'rgba(250,250,247,0.5)', rule: 'rgba(250,250,247,0.16)', acc: '#A9C4FF' }
+  const tWork = page
+  const tApps = blueprint ? L : L
+  const eyebrow = (t: typeof L) => (t === L ? BLUE : 'rgba(250,250,247,0.55)')
 
   return (
-    <main className="min-h-screen antialiased" style={{ background: BG, color: FG, fontFamily: "'Inter', sans-serif" }}>
+    <main className="min-h-screen antialiased" style={{ background: page.bg, color: page.fg, fontFamily: "'Inter', sans-serif" }}>
       {/* ── Fixed nav — hides on scroll down, returns on scroll up ── */}
       <header
         className={`inst-nav fixed top-0 left-0 right-0 z-50 grid grid-cols-[auto_1fr] md:grid-cols-[1fr_auto_1fr] items-center px-6 md:px-12 py-4 ${navHidden ? 'inst-nav-hidden' : ''}`}
-        style={{ background: BG, borderBottom: `1px solid ${RULE}` }}
+        style={{ background: page.bg, borderBottom: `1px solid ${page.rule}` }}
       >
-        <nav className="hidden md:flex items-center gap-7 font-mono2 text-[10px] uppercase tracking-[0.18em]" style={{ color: MUT }}>
+        <nav className="hidden md:flex items-center gap-7 font-mono2 text-[10px] uppercase tracking-[0.18em]" style={{ color: page.mut }}>
           <a href="#i-practice" className="hover:opacity-100 opacity-80 transition-opacity">Practice</a>
           <a href="#i-capabilities" className="hover:opacity-100 opacity-80 transition-opacity">Capabilities</a>
           <a href="#i-work" className="hover:opacity-100 opacity-80 transition-opacity">Work</a>
           <a href="#i-apps" className="hover:opacity-100 opacity-80 transition-opacity">Apps</a>
         </nav>
-        <a href={blueprint ? '/blueprint' : '/institution'} className="font-serif-edit text-xl text-center whitespace-nowrap" style={{ fontWeight: 600, letterSpacing: '-0.01em' }}>
+        <a href={blueprint ? '/blueprint' : '/institution'} className="font-display uppercase text-lg text-center whitespace-nowrap" style={{ fontWeight: 500, letterSpacing: '0.06em' }}>
           GUV Nexus
         </a>
         <div className="flex justify-end">
           <a
             href="mailto:hello@guvnexus.com"
             className="rounded-full px-4 md:px-5 py-2 md:py-2.5 font-mono2 text-[9px] md:text-[10px] uppercase tracking-[0.14em] whitespace-nowrap transition-opacity hover:opacity-85"
-            style={blueprint ? { background: '#F2F0EA', color: '#0B1226' } : { background: INK, color: '#fff' }}
+            style={blueprint ? { background: '#FAFAF7', color: '#0C1A40' } : { background: INK, color: '#fff' }}
           >
             Start a conversation
           </a>
@@ -279,14 +280,14 @@ export default function Institution({ blueprint = false }: { blueprint?: boolean
 
       <div className="pt-[64px]">
         {/* ── News ribbon ── */}
-        <div className="overflow-hidden py-2.5" style={{ borderBottom: `1px solid ${RULE}` }}>
-          <div className="animate-marquee flex whitespace-nowrap font-mono2 text-[10px] uppercase tracking-[0.2em]" style={{ color: MUT }}>
+        <div className="overflow-hidden py-2.5" style={{ borderBottom: `1px solid ${page.rule}` }}>
+          <div className="animate-marquee flex whitespace-nowrap font-mono2 text-[10px] uppercase tracking-[0.2em]" style={{ color: page.mut }}>
             {[0, 1].map((dup) => (
               <span key={dup} className="flex shrink-0">
                 {ribbon.map((item) => (
                   <span key={`${dup}-${item}`} className="flex items-center">
                     <span className="px-8">{item}</span>
-                    <span style={{ color: ACC }}>↗</span>
+                    <span style={{ color: page.acc }}>↗</span>
                   </span>
                 ))}
               </span>
@@ -295,21 +296,21 @@ export default function Institution({ blueprint = false }: { blueprint?: boolean
         </div>
 
         {/* ── Hero — animated GUV mark, preserved verbatim ── */}
-        <section className="px-6 md:px-12 pt-8 md:pt-10 pb-10 md:pb-14">
-          <div style={{ border: `1px solid ${RULE}`, padding: 8 }}>
+        <section className="px-6 md:px-12 pt-8 md:pt-10 pb-10 md:pb-14" style={{ background: tHero.bg }}>
+          <div style={{ border: `1px solid ${tHero.rule}`, padding: 8 }}>
             <div
               className="relative w-full aspect-[16/8] md:aspect-[16/6] overflow-hidden flex items-center justify-center"
-              style={{ background: PANEL, perspective: '1100px' }}
+              style={{ background: tHero.panel, perspective: '1100px' }}
             >
               {/* Outer ring — rotates opposite to the G */}
               <svg className="hero-ring-outer absolute h-[78%] aspect-square" viewBox="0 0 400 400" aria-hidden="true">
-                <circle cx="200" cy="200" r="192" fill="none" stroke={ringInk} strokeOpacity={blueprint ? '0.22' : '0.14'} strokeWidth="1" />
-                <circle cx="200" cy="200" r="192" fill="none" stroke={blueprint ? '#A9C4FF' : BLUE} strokeWidth="2.5" strokeLinecap="round" strokeDasharray="150 1056" />
+                <circle cx="200" cy="200" r="192" fill="none" stroke={tHero.fg} strokeOpacity={blueprint ? '0.25' : '0.14'} strokeWidth="1" />
+                <circle cx="200" cy="200" r="192" fill="none" stroke={tHero.acc} strokeWidth="2.5" strokeLinecap="round" strokeDasharray="150 1056" />
                 <circle cx="200" cy="200" r="192" fill="none" stroke={RED} strokeWidth="2.5" strokeLinecap="round" strokeDasharray="70 1136" strokeDashoffset="-500" />
               </svg>
               {/* Inner dashed ring — follows the G's direction */}
               <svg className="hero-ring-inner absolute h-[60%] aspect-square" viewBox="0 0 400 400" aria-hidden="true">
-                <circle cx="200" cy="200" r="192" fill="none" stroke={ringInk} strokeOpacity={blueprint ? '0.4' : '0.35'} strokeWidth="1" strokeDasharray="3 12" />
+                <circle cx="200" cy="200" r="192" fill="none" stroke={tHero.fg} strokeOpacity={blueprint ? '0.4' : '0.35'} strokeWidth="1" strokeDasharray="3 12" />
               </svg>
               {/* Logo reveal — letters spin off one another, shimmer rolls through, NEXUS rises */}
               <div
@@ -322,35 +323,35 @@ export default function Institution({ blueprint = false }: { blueprint?: boolean
               </div>
               <span
                 className="guv-nexus font-display"
-                style={{ color: FG, fontWeight: 500, fontSize: 'min(3.7vh, 2.7vw)', letterSpacing: '0.35em' }}
+                style={{ color: tHero.fg, fontWeight: 500, fontSize: 'min(3.7vh, 2.7vw)', letterSpacing: '0.35em' }}
               >
                 NEXUS
               </span>
             </div>
           </div>
-          <p className="mt-3 font-mono2 text-[10px] uppercase tracking-[0.18em]" style={{ color: MUT }}>
+          <p className="mt-3 font-mono2 text-[10px] uppercase tracking-[0.18em]" style={{ color: tHero.mut }}>
             Fig. 01 — The GUV mark, always in motion
           </p>
 
           {/* Roman numeral date */}
           <div className="mt-14 md:mt-20 flex items-center gap-6">
-            <span className="flex-1" style={{ borderTop: `1px solid ${RULE}` }} />
-            <p className="font-serif-edit text-lg md:text-xl tracking-tight" style={{ fontWeight: 400 }}>
+            <span className="flex-1" style={{ borderTop: `1px solid ${tHero.rule}` }} />
+            <p className="font-display uppercase text-base md:text-lg" style={{ fontWeight: 500, letterSpacing: '0.3em' }}>
               IX · X · MMXXVI
             </p>
-            <span className="flex-1" style={{ borderTop: `1px solid ${RULE}` }} />
+            <span className="flex-1" style={{ borderTop: `1px solid ${tHero.rule}` }} />
           </div>
 
-          {/* Massive uppercase headline */}
+          {/* Massive uppercase headline — Oswald, the logo voice */}
           <h1
-            className="font-serif-edit mt-8 uppercase text-[11.5vw] md:text-[7.4vw] leading-[0.86]"
-            style={{ fontWeight: 350, letterSpacing: '-0.045em' }}
+            className="font-display mt-8 uppercase text-[11.5vw] md:text-[7.2vw] leading-[0.94]"
+            style={{ fontWeight: 500, letterSpacing: '-0.02em' }}
           >
-            Software that solves <span style={{ color: ACC }}>real</span> business problems<span style={{ color: RED }}>.</span>
+            Software that solves <span style={{ color: tHero.acc }}>real</span> business problems<span style={{ color: RED }}>.</span>
           </h1>
 
           <div className="mt-12 grid md:grid-cols-2 gap-10 items-end">
-            <p className="max-w-md text-base md:text-lg leading-relaxed" style={{ color: MUT }}>
+            <p className="max-w-md text-base md:text-lg leading-relaxed" style={{ color: tHero.mut }}>
               GUV Nexus designs, builds and operates focused applications for
               specific, unglamorous business challenges — alongside a handful of
               senior-only client engagements each year.
@@ -363,29 +364,29 @@ export default function Institution({ blueprint = false }: { blueprint?: boolean
         </section>
 
         {/* ── Line-art frieze ── */}
-        <section className="px-6 md:px-12 pb-16 md:pb-24">
-          <div style={{ border: `1px solid ${RULE}`, padding: 8 }}>
-            <div className="overflow-hidden" style={{ background: PANEL }}>
-              <Frieze ink={blueprint ? '#A9C4FF' : BLUE} />
+        <section className="px-6 md:px-12 pb-16 md:pb-24" style={{ background: tHero.bg }}>
+          <div style={{ border: `1px solid ${tHero.rule}`, padding: 8 }}>
+            <div className="overflow-hidden" style={{ background: tHero.panel }}>
+              <Frieze ink={tHero.acc} />
             </div>
           </div>
-          <p className="mt-3 font-mono2 text-[10px] uppercase tracking-[0.18em]" style={{ color: MUT }}>
+          <p className="mt-3 font-mono2 text-[10px] uppercase tracking-[0.18em]" style={{ color: tHero.mut }}>
             Fig. 02 — Construction, aviation and finance, drawn in one ink
           </p>
         </section>
       </div>
 
       {/* ── 01 Practice ─────────────────────────────────── */}
-      <section id="i-practice" className="px-6 md:px-12 py-20 md:py-32" style={{ borderTop: `1px solid ${RULE}` }}>
+      <section id="i-practice" className="px-6 md:px-12 py-20 md:py-32" style={{ background: tPractice.bg, color: tPractice.fg }}>
         <div className="grid md:grid-cols-[220px_1fr] gap-10">
-          <Eyebrow color={eyebrow}>01 — The practice</Eyebrow>
+          <Eyebrow color={eyebrow(tPractice)}>01 — The practice</Eyebrow>
           <div>
-            <h2 className="font-serif-edit uppercase text-4xl md:text-6xl leading-[0.95]" style={{ fontWeight: 350, letterSpacing: '-0.03em' }}>
+            <h2 className="font-display uppercase text-4xl md:text-6xl leading-[0.98]" style={{ fontWeight: 500, letterSpacing: '-0.015em' }}>
               Small by design.
               <br />
-              <span style={{ color: MUT }}>Serious by default.</span>
+              <span style={{ color: tPractice.mut }}>Serious by default.</span>
             </h2>
-            <p className="mt-8 max-w-xl text-base md:text-lg leading-relaxed" style={{ color: MUT }}>
+            <p className="mt-8 max-w-xl text-base md:text-lg leading-relaxed" style={{ color: tPractice.mut }}>
               GUV Nexus is a boutique technology studio. Alongside a handful of
               client engagements a year, we design, build and operate our own
               portfolio of applications. Senior people only, on everything we
@@ -394,15 +395,15 @@ export default function Institution({ blueprint = false }: { blueprint?: boolean
           </div>
         </div>
 
-        <div className="mt-20 grid grid-cols-2 md:grid-cols-4" style={{ border: `1px solid ${RULE}` }}>
+        <div className="mt-20 grid grid-cols-2 md:grid-cols-4" style={{ border: `1px solid ${tPractice.rule}` }}>
           {stats.map((s, i) => (
             <div
               key={s.label}
               className="p-6 md:p-10"
-              style={{ borderLeft: i > 0 ? `1px solid ${RULE}` : undefined }}
+              style={{ borderLeft: i > 0 ? `1px solid ${tPractice.rule}` : undefined }}
             >
-              <div className="font-serif-edit text-5xl md:text-6xl" style={{ fontWeight: 350 }}>{s.value}</div>
-              <div className="mt-3 font-mono2 text-[10px] uppercase tracking-[0.18em]" style={{ color: MUT }}>
+              <div className="font-display text-5xl md:text-6xl" style={{ fontWeight: 500 }}>{s.value}</div>
+              <div className="mt-3 font-mono2 text-[10px] uppercase tracking-[0.18em]" style={{ color: tPractice.mut }}>
                 {s.label}
               </div>
             </div>
@@ -411,38 +412,38 @@ export default function Institution({ blueprint = false }: { blueprint?: boolean
       </section>
 
       {/* ── 02 Capabilities ─────────────────────────────── */}
-      <section id="i-capabilities" className="px-6 md:px-12 py-20 md:py-32" style={{ borderTop: `1px solid ${RULE}` }}>
+      <section id="i-capabilities" className="px-6 md:px-12 py-20 md:py-32" style={{ background: tCap.bg, color: tCap.fg, borderTop: `1px solid ${page.rule}` }}>
         <div className="grid md:grid-cols-[220px_1fr] gap-10">
-          <Eyebrow color={eyebrow}>02 — Capabilities</Eyebrow>
-          <h2 className="font-serif-edit uppercase text-4xl md:text-6xl leading-[0.95]" style={{ fontWeight: 350, letterSpacing: '-0.03em' }}>
-            Four disciplines, <span style={{ color: MUT }}>one team.</span>
+          <Eyebrow color={eyebrow(tCap)}>02 — Capabilities</Eyebrow>
+          <h2 className="font-display uppercase text-4xl md:text-6xl leading-[0.98]" style={{ fontWeight: 500, letterSpacing: '-0.015em' }}>
+            Four disciplines, <span style={{ color: tCap.mut }}>one team.</span>
           </h2>
         </div>
 
-        <div className="mt-16" style={{ borderTop: `1px solid ${RULE}` }}>
+        <div className="mt-16" style={{ borderTop: `1px solid ${tCap.rule}` }}>
           {capabilities.map((c) => (
             <article
               key={c.n}
               className="group grid md:grid-cols-[220px_1fr_1.2fr_40px] gap-4 md:gap-10 items-baseline py-10 md:py-12 transition-colors duration-300"
-              style={{ borderBottom: `1px solid ${RULE}` }}
+              style={{ borderBottom: `1px solid ${tCap.rule}` }}
             >
-              <span className="font-serif-edit text-2xl md:text-3xl" style={{ fontWeight: 350, color: ACC }}>
+              <span className="font-display uppercase text-xl md:text-2xl" style={{ fontWeight: 500, letterSpacing: '0.08em', color: tCap.acc }}>
                 {c.n}
               </span>
-              <h3 className="font-serif-edit uppercase text-3xl md:text-[2.4rem] leading-tight" style={{ fontWeight: 350, letterSpacing: '-0.02em' }}>
+              <h3 className="font-display uppercase text-2xl md:text-4xl leading-tight" style={{ fontWeight: 500, letterSpacing: '-0.01em' }}>
                 {c.title}
               </h3>
               <div>
-                <p className="leading-relaxed max-w-xl" style={{ color: MUT }}>{c.desc}</p>
+                <p className="leading-relaxed max-w-xl" style={{ color: tCap.mut }}>{c.desc}</p>
                 <div className="mt-4 flex flex-wrap gap-x-6 gap-y-2">
                   {c.tags.map((t) => (
-                    <span key={t} className="font-mono2 text-[10px] uppercase tracking-[0.18em]" style={{ color: MUT }}>
+                    <span key={t} className="font-mono2 text-[10px] uppercase tracking-[0.18em]" style={{ color: tCap.mut }}>
                       {t}
                     </span>
                   ))}
                 </div>
               </div>
-              <span className="hidden md:block text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{ color: ACC }}>
+              <span className="hidden md:block text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{ color: tCap.acc }}>
                 ↗
               </span>
             </article>
@@ -450,19 +451,19 @@ export default function Institution({ blueprint = false }: { blueprint?: boolean
         </div>
       </section>
 
-      {/* ── Interlude: Leadership (flips against the page ground) ── */}
-      <section className="px-6 md:px-12 py-24 md:py-36" style={{ background: leadBg, color: leadFg }}>
+      {/* ── Interlude: Leadership ── */}
+      <section className="px-6 md:px-12 py-24 md:py-36" style={{ background: tLead.bg, color: tLead.fg }}>
         <div className="grid md:grid-cols-[220px_1fr] gap-10">
-          <Eyebrow color={blueprint ? BLUE : 'rgba(255,255,255,0.55)'}>03 — Leadership</Eyebrow>
+          <Eyebrow color={eyebrow(tLead)}>03 — Leadership</Eyebrow>
           <div>
-            <p className="font-serif-edit text-3xl md:text-5xl leading-[1.15] max-w-4xl" style={{ fontWeight: 400 }}>
+            <p className="font-display uppercase text-2xl md:text-4xl leading-[1.12] max-w-4xl" style={{ fontWeight: 500, letterSpacing: '-0.01em' }}>
               GUV Nexus is led by{' '}
-              <em className="font-serif-edit" style={{ fontStyle: 'italic', color: RED }}>Beth Underhill</em>
+              <span style={{ color: RED }}>Beth Underhill</span>
               , principal and founder — backed by a bench of senior engineers,
               researchers and designers who have shipped at scale and chose to
               work small.
             </p>
-            <div className="mt-12 flex flex-wrap gap-x-10 gap-y-3 font-mono2 text-[10px] uppercase tracking-[0.18em]" style={{ color: leadMut }}>
+            <div className="mt-12 flex flex-wrap gap-x-10 gap-y-3 font-mono2 text-[10px] uppercase tracking-[0.18em]" style={{ color: tLead.mut }}>
               <span>Principal — B. Underhill</span>
               <span>Senior teams only</span>
               <span>US & EU time zones</span>
@@ -472,11 +473,11 @@ export default function Institution({ blueprint = false }: { blueprint?: boolean
       </section>
 
       {/* ── 04 Selected work ────────────────────────────── */}
-      <section id="i-work" className="px-6 md:px-12 py-20 md:py-32">
+      <section id="i-work" className="px-6 md:px-12 py-20 md:py-32" style={{ background: tWork.bg, color: tWork.fg }}>
         <div className="grid md:grid-cols-[220px_1fr] gap-10">
-          <Eyebrow color={eyebrow}>04 — Selected work</Eyebrow>
-          <h2 className="font-serif-edit uppercase text-4xl md:text-6xl leading-[0.95]" style={{ fontWeight: 350, letterSpacing: '-0.03em' }}>
-            Proof, <span style={{ color: MUT }}>not promises.</span>
+          <Eyebrow color={eyebrow(tWork)}>04 — Selected work</Eyebrow>
+          <h2 className="font-display uppercase text-4xl md:text-6xl leading-[0.98]" style={{ fontWeight: 500, letterSpacing: '-0.015em' }}>
+            Proof, <span style={{ color: tWork.mut }}>not promises.</span>
           </h2>
         </div>
 
@@ -486,39 +487,39 @@ export default function Institution({ blueprint = false }: { blueprint?: boolean
             { img: `${BASE}media/work-intelligence.jpg`, name: 'Vanta Index', scope: 'Applied ML for private markets', year: '2024', tags: ['Applied intelligence', 'Retrieval systems'] },
           ].map((p) => (
             <div key={p.name}>
-              <div style={{ border: `1px solid ${RULE}`, padding: 8 }}>
+              <div style={{ border: `1px solid ${tWork.rule}`, padding: 8 }}>
                 <img src={p.img} alt={p.name} className="w-full aspect-[16/9] object-cover" loading="lazy" />
               </div>
-              <div className="mt-5 flex items-baseline justify-between pt-4" style={{ borderTop: `1px solid ${RULE}` }}>
+              <div className="mt-5 flex items-baseline justify-between pt-4" style={{ borderTop: `1px solid ${tWork.rule}` }}>
                 <div>
-                  <h3 className="font-serif-edit uppercase text-2xl md:text-4xl" style={{ fontWeight: 350, letterSpacing: '-0.02em' }}>{p.name}</h3>
-                  <p className="mt-1 text-sm" style={{ color: MUT }}>{p.scope}</p>
+                  <h3 className="font-display uppercase text-2xl md:text-3xl" style={{ fontWeight: 500, letterSpacing: '-0.01em' }}>{p.name}</h3>
+                  <p className="mt-1 text-sm" style={{ color: tWork.mut }}>{p.scope}</p>
                 </div>
-                <span className="font-mono2 text-[11px]" style={{ color: MUT }}>{p.year}</span>
+                <span className="font-mono2 text-[11px]" style={{ color: tWork.mut }}>{p.year}</span>
               </div>
               <div className="mt-3 flex gap-5">
                 {p.tags.map((t) => (
-                  <span key={t} className="font-mono2 text-[10px] uppercase tracking-[0.18em]" style={{ color: MUT }}>{t}</span>
+                  <span key={t} className="font-mono2 text-[10px] uppercase tracking-[0.18em]" style={{ color: tWork.mut }}>{t}</span>
                 ))}
               </div>
             </div>
           ))}
         </div>
 
-        <p className="mt-16 font-mono2 text-[11px] uppercase tracking-[0.18em] max-w-md" style={{ color: MUT }}>
+        <p className="mt-16 font-mono2 text-[11px] uppercase tracking-[0.18em] max-w-md" style={{ color: tWork.mut }}>
           Client names anonymized under NDA. Full case studies shared on request.
         </p>
       </section>
 
       {/* ── 05 App portfolio — index with hover inversion ── */}
-      <section id="i-apps" className="px-6 md:px-12 py-20 md:py-32" style={{ borderTop: `1px solid ${RULE}` }}>
+      <section id="i-apps" className="px-6 md:px-12 py-20 md:py-32" style={{ background: tApps.bg, color: tApps.fg, borderTop: `1px solid ${page.rule}` }}>
         <div className="grid md:grid-cols-[220px_1fr] gap-10">
-          <Eyebrow color={eyebrow}>05 — The app portfolio</Eyebrow>
+          <Eyebrow color={eyebrow(tApps)}>05 — The app portfolio</Eyebrow>
           <div>
-            <h2 className="font-serif-edit uppercase text-4xl md:text-6xl leading-[0.95]" style={{ fontWeight: 350, letterSpacing: '-0.03em' }}>
-              Apps that earn <span style={{ color: MUT }}>their keep.</span>
+            <h2 className="font-display uppercase text-4xl md:text-6xl leading-[0.98]" style={{ fontWeight: 500, letterSpacing: '-0.015em' }}>
+              Apps that earn <span style={{ color: tApps.mut }}>their keep.</span>
             </h2>
-            <p className="mt-8 max-w-xl leading-relaxed" style={{ color: MUT }}>
+            <p className="mt-8 max-w-xl leading-relaxed" style={{ color: tApps.mut }}>
               Alongside client work, GUV Nexus designs, builds and operates a
               growing portfolio of focused applications — each one aimed at a
               specific, unglamorous business problem worth solving properly.
@@ -526,16 +527,16 @@ export default function Institution({ blueprint = false }: { blueprint?: boolean
           </div>
         </div>
 
-        <div className="mt-16" style={{ borderTop: `1px solid ${RULE}` }}>
+        <div className="mt-16" style={{ borderTop: `1px solid ${tApps.rule}` }}>
           {apps.map((a) => (
             <article
               key={a.n}
-              className={`inst-row ${blueprint ? 'inst-row-dark' : ''} grid md:grid-cols-[110px_1.1fr_1.4fr_auto_40px] gap-3 md:gap-8 items-start md:items-center px-4 md:px-6 py-8 md:py-9`}
-              style={{ borderBottom: `1px solid ${RULE}` }}
+              className={`inst-row grid md:grid-cols-[110px_1.1fr_1.4fr_auto_40px] gap-3 md:gap-8 items-start md:items-center px-4 md:px-6 py-8 md:py-9`}
+              style={{ borderBottom: `1px solid ${tApps.rule}` }}
             >
               <span className="ir-muted font-mono2 text-[11px] tracking-[0.14em]">{a.n}</span>
               <div>
-                <h3 className="ir-name font-serif-edit uppercase text-2xl md:text-3xl" style={{ fontWeight: 350, letterSpacing: '-0.02em' }}>{a.name}</h3>
+                <h3 className="ir-name font-display uppercase text-2xl md:text-3xl" style={{ fontWeight: 500, letterSpacing: '-0.01em' }}>{a.name}</h3>
                 <p className="ir-muted mt-1 font-mono2 text-[10px] uppercase tracking-[0.18em]">
                   {a.domain} · {a.status}
                 </p>
@@ -547,7 +548,7 @@ export default function Institution({ blueprint = false }: { blueprint?: boolean
           ))}
         </div>
 
-        <p className="mt-12 font-mono2 text-[11px] uppercase tracking-[0.18em] max-w-lg" style={{ color: MUT }}>
+        <p className="mt-12 font-mono2 text-[11px] uppercase tracking-[0.18em] max-w-lg" style={{ color: tApps.mut }}>
           Portfolio names shown pre-launch branding. Demos and access on request.
         </p>
       </section>
@@ -558,7 +559,7 @@ export default function Institution({ blueprint = false }: { blueprint?: boolean
           06 — Contact
         </p>
         <a href="mailto:hello@guvnexus.com" className="block mt-10">
-          <span className="font-serif-edit uppercase block leading-[0.85] text-[13.5vw] md:text-[9.5vw]" style={{ fontWeight: 350, letterSpacing: '-0.045em' }}>
+          <span className="font-display uppercase block leading-[0.92] text-[13.5vw] md:text-[9.5vw]" style={{ fontWeight: 500, letterSpacing: '-0.02em' }}>
             GUV Nexus
           </span>
         </a>
