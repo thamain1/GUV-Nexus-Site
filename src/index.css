@@ -255,4 +255,91 @@
     pointer-events: none;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
   }
+  /* ── Institution direction (preview) ─────────────────── */
+  .inst-nav {
+    transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: transform;
+  }
+  .inst-nav-hidden {
+    transform: translateY(-100%);
+  }
+  /* Pill button with clipped corner circles */
+  .inst-pill {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7em;
+    padding: 15px 34px;
+    border: 1px solid #0033a0;
+    border-radius: 999px;
+    color: #0033a0;
+    background: transparent;
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    transition: background 0.3s ease, color 0.3s ease;
+  }
+  .inst-pill:hover {
+    background: #0033a0;
+    color: #ffffff;
+  }
+  .inst-corner {
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    border: 1px solid #0033a0;
+    border-radius: 50%;
+    background: #fafaf7;
+    pointer-events: none;
+  }
+  .inst-corner.tl { top: -8px; left: 22px; }
+  .inst-corner.tr { top: -8px; right: 22px; }
+  .inst-corner.bl { bottom: -8px; left: 22px; }
+  .inst-corner.br { bottom: -8px; right: 22px; }
+  /* Inverted pill for the blue footer */
+  .inst-pill-inv {
+    border-color: #ffffff;
+    color: #ffffff;
+  }
+  .inst-pill-inv:hover {
+    background: #ffffff;
+    color: #0033a0;
+  }
+  .inst-pill-inv .inst-corner {
+    border-color: #ffffff;
+    background: #0033a0;
+  }
+  /* App index rows — hover inversion */
+  .inst-row {
+    transition: background 0.3s ease;
+  }
+  .inst-row .ir-name {
+    color: #14161a;
+    transition: color 0.3s ease;
+  }
+  .inst-row .ir-muted {
+    color: #6b6359;
+    transition: color 0.3s ease;
+  }
+  .inst-row:hover {
+    background: #0033a0;
+  }
+  .inst-row:hover .ir-name {
+    color: #ffffff;
+  }
+  .inst-row:hover .ir-muted {
+    color: rgba(255, 255, 255, 0.72);
+  }
+  .inst-row .ir-arrow {
+    opacity: 0;
+    transform: translateX(-8px);
+    color: #0033a0;
+    transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), color 0.3s ease;
+  }
+  .inst-row:hover .ir-arrow {
+    opacity: 1;
+    transform: translateX(0);
+    color: #ffffff;
+  }
 }
