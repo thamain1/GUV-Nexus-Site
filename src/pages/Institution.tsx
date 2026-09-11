@@ -553,8 +553,8 @@ export default function Institution({ blueprint = false }: { blueprint?: boolean
         </p>
       </section>
 
-      {/* ── Blue footer ─────────────────────────────────── */}
-      <footer className="px-6 md:px-12 pt-20 md:pt-28 pb-10" style={{ background: BLUE, color: '#fff' }}>
+      {/* ── Footer ──────────────────────────────────────── */}
+      <footer className="px-6 md:px-12 pt-20 md:pt-28 pb-10" style={{ background: '#0C1A40', color: '#FAFAF7' }}>
         <p className="font-mono2 text-[12.5px] uppercase tracking-[0.22em]" style={{ color: '#FF6B85' }}>
           06 — Contact
         </p>
