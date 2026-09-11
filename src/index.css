@@ -343,6 +343,13 @@
     color: #ffffff;
   }
   /* Blueprint (dark) theme variants */
+  .footer-word {
+    color: #fafaf7;
+    transition: color 0.3s ease;
+  }
+  .footer-word:hover {
+    color: #ff6b85;
+  }
   .guv-dark .guv-ch {
     background-image: linear-gradient(110deg, #b9ccff 42%, #ffffff 50%, #b9ccff 58%);
   }

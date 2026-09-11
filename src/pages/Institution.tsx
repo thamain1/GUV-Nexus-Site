@@ -300,21 +300,21 @@ export default function Institution({ blueprint = false }: { blueprint?: boolean
           <div style={{ border: `1px solid ${tHero.rule}`, padding: 8 }}>
             <div
               className="relative w-full aspect-[16/8] md:aspect-[16/6] overflow-hidden flex items-center justify-center"
-              style={{ background: tHero.panel, perspective: '1100px' }}
+              style={{ background: PAPER, perspective: '1100px' }}
             >
               {/* Outer ring — rotates opposite to the G */}
               <svg className="hero-ring-outer absolute h-[78%] aspect-square" viewBox="0 0 400 400" aria-hidden="true">
-                <circle cx="200" cy="200" r="192" fill="none" stroke={tHero.fg} strokeOpacity={blueprint ? '0.25' : '0.14'} strokeWidth="1" />
-                <circle cx="200" cy="200" r="192" fill="none" stroke={tHero.acc} strokeWidth="2.5" strokeLinecap="round" strokeDasharray="150 1056" />
+                <circle cx="200" cy="200" r="192" fill="none" stroke={INK} strokeOpacity="0.14" strokeWidth="1" />
+                <circle cx="200" cy="200" r="192" fill="none" stroke={BLUE} strokeWidth="2.5" strokeLinecap="round" strokeDasharray="150 1056" />
                 <circle cx="200" cy="200" r="192" fill="none" stroke={RED} strokeWidth="2.5" strokeLinecap="round" strokeDasharray="70 1136" strokeDashoffset="-500" />
               </svg>
               {/* Inner dashed ring — follows the G's direction */}
               <svg className="hero-ring-inner absolute h-[60%] aspect-square" viewBox="0 0 400 400" aria-hidden="true">
-                <circle cx="200" cy="200" r="192" fill="none" stroke={tHero.fg} strokeOpacity={blueprint ? '0.4' : '0.35'} strokeWidth="1" strokeDasharray="3 12" />
+                <circle cx="200" cy="200" r="192" fill="none" stroke={INK} strokeOpacity="0.35" strokeWidth="1" strokeDasharray="3 12" />
               </svg>
               {/* Logo reveal — letters spin off one another, shimmer rolls through, NEXUS rises */}
               <div
-                className={`guv-word font-display ${blueprint ? 'guv-dark' : ''}`}
+                className="guv-word font-display"
                 style={{ fontWeight: 600, fontSize: 'min(17vh, 12.5vw)', lineHeight: 1 }}
               >
                 <span className="guv-l gl-g"><span className="guv-ch">G</span></span>
@@ -323,7 +323,7 @@ export default function Institution({ blueprint = false }: { blueprint?: boolean
               </div>
               <span
                 className="guv-nexus font-display"
-                style={{ color: tHero.fg, fontWeight: 500, fontSize: 'min(3.7vh, 2.7vw)', letterSpacing: '0.35em' }}
+                style={{ color: INK, fontWeight: 500, fontSize: 'min(3.7vh, 2.7vw)', letterSpacing: '0.35em' }}
               >
                 NEXUS
               </span>
@@ -559,8 +559,8 @@ export default function Institution({ blueprint = false }: { blueprint?: boolean
           06 — Contact
         </p>
         <a href="mailto:hello@guvnexus.com" className="block mt-10">
-          <span className="font-display uppercase block leading-[0.92] text-[13.5vw] md:text-[9.5vw]" style={{ fontWeight: 500, letterSpacing: '-0.02em', color: '#FAFAF7' }}>
-            GUV Nexus
+          <span className="footer-word font-display uppercase block leading-[0.92] text-[13.5vw] md:text-[9.5vw]" style={{ fontWeight: 500, letterSpacing: '-0.02em' }}>
+            Let's Build Together
           </span>
         </a>
         <div className="mt-14 flex flex-col md:flex-row md:items-center justify-between gap-8">
