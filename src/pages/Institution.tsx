@@ -304,13 +304,13 @@ export default function Institution({ blueprint = false }: { blueprint?: boolean
             >
               {/* Outer ring — rotates opposite to the G */}
               <svg className="hero-ring-outer absolute h-[78%] aspect-square" viewBox="0 0 400 400" aria-hidden="true">
-                <circle cx="200" cy="200" r="192" fill="none" stroke={INK} strokeOpacity="0.14" strokeWidth="1" />
-                <circle cx="200" cy="200" r="192" fill="none" stroke={BLUE} strokeWidth="2.5" strokeLinecap="round" strokeDasharray="150 1056" />
-                <circle cx="200" cy="200" r="192" fill="none" stroke={RED} strokeWidth="2.5" strokeLinecap="round" strokeDasharray="70 1136" strokeDashoffset="-500" />
+                <circle cx="200" cy="200" r="192" fill="none" stroke={INK} strokeOpacity="0.14" strokeWidth="2" />
+                <circle cx="200" cy="200" r="192" fill="none" stroke={BLUE} strokeWidth="5" strokeLinecap="round" strokeDasharray="150 1056" />
+                <circle cx="200" cy="200" r="192" fill="none" stroke={RED} strokeWidth="5" strokeLinecap="round" strokeDasharray="70 1136" strokeDashoffset="-500" />
               </svg>
               {/* Inner dashed ring — follows the G's direction */}
               <svg className="hero-ring-inner absolute h-[60%] aspect-square" viewBox="0 0 400 400" aria-hidden="true">
-                <circle cx="200" cy="200" r="192" fill="none" stroke={INK} strokeOpacity="0.35" strokeWidth="1" strokeDasharray="3 12" />
+                <circle cx="200" cy="200" r="192" fill="none" stroke={INK} strokeOpacity="0.35" strokeWidth="2" strokeDasharray="3 12" />
               </svg>
               {/* Logo reveal — letters spin off one another, shimmer rolls through, NEXUS rises */}
               <div
