@@ -7,7 +7,7 @@ import Institution from './pages/Institution'
 export default function App() {
   return (
     <Routes>
-      <Route path="/" element={<VariantA />} />
+      <Route path="/" element={<Institution blueprint />} />
       <Route path="/variant-a" element={<VariantA />} />
       <Route path="/classic" element={<Home />} />
       <Route path="/variant-b" element={<VariantB />} />
