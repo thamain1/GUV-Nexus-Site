@@ -351,6 +351,13 @@
   .footer-word:hover {
     color: #ff6b85;
   }
+  .contact-form ::placeholder {
+    color: rgba(250, 250, 247, 0.32);
+  }
+  .contact-form input:focus,
+  .contact-form textarea:focus {
+    border-bottom-color: #ff6b85;
+  }
   .guv-dark .guv-ch {
     background-image: linear-gradient(110deg, #b9ccff 42%, #ffffff 50%, #b9ccff 58%);
   }

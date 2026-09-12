@@ -222,6 +222,104 @@ function Frieze({ ink }: { ink: string }) {
   )
 }
 
+// Footer contact form — posts to the /api/contact Pages Function,
+// which relays to the studio inbox via SendGrid.
+function ContactForm() {
+  const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle')
+  const [errorMsg, setErrorMsg] = useState('')
+
+  const field =
+    'w-full bg-transparent font-mono2 text-[13px] tracking-[0.04em] py-3 outline-none placeholder:normal-case placeholder:tracking-normal transition-colors'
+  const fieldStyle = {
+    borderBottom: '1px solid rgba(250,250,247,0.3)',
+    color: '#FAFAF7',
+  }
+  const label = 'block font-mono2 text-[12.5px] uppercase tracking-[0.22em] mb-1'
+
+  async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault()
+    const form = e.currentTarget
+    const get = (n: string) => (form.elements.namedItem(n) as HTMLInputElement | HTMLTextAreaElement)?.value || ''
+    setStatus('sending')
+    setErrorMsg('')
+    try {
+      const res = await fetch(`${BASE}api/contact`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: get('name'),
+          email: get('email'),
+          company: get('company'),
+          message: get('message'),
+          website: get('website'), // honeypot
+        }),
+      })
+      const body = await res.json().catch(() => ({}))
+      if (res.ok && body.ok) {
+        setStatus('sent')
+        form.reset()
+      } else {
+        setErrorMsg(body.error || 'Something went wrong.')
+        setStatus('error')
+      }
+    } catch {
+      setErrorMsg('Network error — please try again.')
+      setStatus('error')
+    }
+  }
+
+  if (status === 'sent') {
+    return (
+      <div className="mt-14 max-w-2xl">
+        <p className="font-display uppercase text-3xl md:text-4xl" style={{ fontWeight: 500, color: '#FF6B85' }}>
+          Message sent.
+        </p>
+        <p className="mt-4 font-mono2 text-[12.5px] uppercase tracking-[0.18em]" style={{ color: 'rgba(250,250,247,0.65)' }}>
+          Thank you — we read everything and reply within two business days.
+        </p>
+      </div>
+    )
+  }
+
+  return (
+    <form onSubmit={onSubmit} className="contact-form mt-14 max-w-3xl">
+      <div className="grid md:grid-cols-2 gap-x-10 gap-y-8">
+        <div>
+          <label htmlFor="cf-name" className={label} style={{ color: 'rgba(250,250,247,0.65)' }}>Name</label>
+          <input id="cf-name" name="name" required maxLength={120} className={field} style={fieldStyle} placeholder="Jane Appleseed" />
+        </div>
+        <div>
+          <label htmlFor="cf-email" className={label} style={{ color: 'rgba(250,250,247,0.65)' }}>Email</label>
+          <input id="cf-email" name="email" type="email" required maxLength={200} className={field} style={fieldStyle} placeholder="jane@company.com" />
+        </div>
+        <div className="md:col-span-2">
+          <label htmlFor="cf-company" className={label} style={{ color: 'rgba(250,250,247,0.65)' }}>Company — optional</label>
+          <input id="cf-company" name="company" maxLength={120} className={field} style={fieldStyle} placeholder="Company LLC" />
+        </div>
+        <div className="md:col-span-2">
+          <label htmlFor="cf-message" className={label} style={{ color: 'rgba(250,250,247,0.65)' }}>What are we solving?</label>
+          <textarea id="cf-message" name="message" required maxLength={5000} rows={4} className={`${field} resize-none`} style={fieldStyle} placeholder="A sentence or two about the problem — we'll take it from there." />
+        </div>
+      </div>
+      {/* honeypot — invisible to humans */}
+      <input name="website" type="text" tabIndex={-1} autoComplete="off" aria-hidden="true" style={{ position: 'absolute', left: '-9999px', opacity: 0 }} />
+      <div className="mt-10 flex flex-wrap items-center gap-6">
+        <button type="submit" disabled={status === 'sending'} className="inst-pill inst-pill-inv" style={{ opacity: status === 'sending' ? 0.6 : 1 }}>
+          <span className="inst-corner tl" />
+          <span className="inst-corner tr" />
+          <span className="inst-corner bl" />
+          <span className="inst-corner br" />
+          <span className="relative">{status === 'sending' ? 'Sending…' : 'Send message'}</span>
+          <span className="relative">↗</span>
+        </button>
+        {status === 'error' && (
+          <p className="font-mono2 text-[12.5px] tracking-[0.06em]" style={{ color: '#FF6B85' }}>{errorMsg}</p>
+        )}
+      </div>
+    </form>
+  )
+}
+
 export default function Institution({ blueprint = false }: { blueprint?: boolean }) {
   const [navHidden, setNavHidden] = useState(false)
   const lastY = useRef(0)
@@ -563,6 +661,7 @@ export default function Institution({ blueprint = false }: { blueprint?: boolean
             Let's Build Together
           </span>
         </a>
+        <ContactForm />
         <div className="mt-14 flex flex-col md:flex-row md:items-center justify-between gap-8">
           <InstPill href="mailto:hello@guvnexus.com" invert>
             hello@guvnexus.com
