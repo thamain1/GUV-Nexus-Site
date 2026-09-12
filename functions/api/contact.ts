@@ -74,6 +74,45 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
     return fail('The message could not be sent. Please email hello@guvnexus.com directly.', 502)
   }
 
+  // Auto-reply to the visitor — best effort; never fail the request on this.
+  try {
+    const autoReply = await fetch('https://api.sendgrid.com/v3/mail/send', {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${env.SENDGRID_API_KEY}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        personalizations: [{ to: [{ email, name }] }],
+        from: { email: from, name: 'GUV Nexus' },
+        subject: 'We received your message — GUV Nexus',
+        content: [
+          {
+            type: 'text/plain',
+            value: [
+              `Hi ${name},`,
+              ``,
+              `Thank you for reaching out to GUV Nexus. Your message has landed`,
+              `with the studio — we read everything personally and will reply`,
+              `within two business days.`,
+              ``,
+              `If anything is time-sensitive, you can always reach us directly`,
+              `at hello@guvnexus.com.`,
+              ``,
+              `— GUV Nexus`,
+              `Software that solves real business problems`,
+            ].join('\n'),
+          },
+        ],
+      }),
+    })
+    if (!autoReply.ok) {
+      console.error(`Auto-reply failed ${autoReply.status}: ${await autoReply.text()}`)
+    }
+  } catch (err) {
+    console.error('Auto-reply error:', err)
+  }
+
   return Response.json({ ok: true })
 }
 
